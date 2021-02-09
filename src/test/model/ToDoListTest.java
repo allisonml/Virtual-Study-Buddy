@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MyModelTest {
+// Tests for ToDoList class
+class ToDoListTest {
     // delete or rename this class!
 }
