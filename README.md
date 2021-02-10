@@ -34,8 +34,9 @@ Some potential additional features:
 ## User Stories
 
 Phase 1:
-- 
--
--
--
+- As a user, I want to be able to add multiple tasks to a todo list
+- As a user, I want to be able to delete a task from my todo list (based on its position in the list)
+- As a user, I want to be able to view my todo list with their names and time required
+- As a user, I want to be able to view my todo list filtered based on priority
+
 Phase 2:
