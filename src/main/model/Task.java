@@ -1,6 +1,5 @@
 package model;
 
-import java.util.List;
 
 // represents a single task to be completed
 public class Task {
@@ -29,6 +28,14 @@ public class Task {
     // EFFECTS: returns true if this is a priority (to be completed today)
     public boolean getIsPriority() {
         return this.isPriority;
+    }
+
+    public String getTaskView() {
+        if (this.isPriority) {
+            return this.name + "* (" + this.minutesNeeded + ")";
+        } else {
+            return this.name + " (" + this.minutesNeeded + ")";
+        }
     }
 
 
