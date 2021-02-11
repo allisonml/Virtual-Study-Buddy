@@ -23,6 +23,8 @@ class ToDoListTest {
     }
 
     // addTask Tests
+
+    // no tasks added yet
     @Test
     public void testAddTaskEmptyList() {
         assertEquals(0, emptyList.getLength());
@@ -59,6 +61,7 @@ class ToDoListTest {
 
     //removeTask tests
 
+    // remove the only task
     @Test
     public void testRemoveTaskOneFirst() {
         oneItem.addTask("task 1", 5, true);
@@ -70,6 +73,7 @@ class ToDoListTest {
 
     }
 
+    // remove the first of many tasks
     @Test
     public void testRemoveTaskManyFirst() {
         fewItems.addTask("task 1", 5, true);
@@ -88,6 +92,7 @@ class ToDoListTest {
 
     }
 
+    // remove from the middle of many tasks
     @Test
     public void testRemoveTaskManyMiddle() {
         fewItems.addTask("task 1", 5, true);
@@ -106,6 +111,7 @@ class ToDoListTest {
 
     }
 
+    // // remove the last of many tasks
     @Test
     public void testRemoveTaskManyLast() {
         fewItems.addTask("task 1", 5, true);
@@ -124,6 +130,7 @@ class ToDoListTest {
 
     }
 
+    // remove multiple tasks in a row
     @Test
     public void testRemoveTaskManyMultiple() {
         fewItems.addTask("task 1", 5, true);
@@ -151,6 +158,7 @@ class ToDoListTest {
 
     // getPrioritiesOnly tests
 
+    // the only task in list is priority
     @Test
     public void testGetPrioritiesOneTrue() {
         oneItem.addTask("task 1", 5, true);
@@ -164,6 +172,7 @@ class ToDoListTest {
 
     }
 
+    // only task in list is not priority
     @Test
     public void testGetPrioritiesOneFalse() {
         oneItem.addTask("task 1", 5, false);
@@ -175,6 +184,7 @@ class ToDoListTest {
 
     }
 
+    // all of many tasks in list are priority
     @Test
     public void testGetPrioritiesManyTrue() {
         fewItems.addTask("task 1", 5, true);
@@ -191,6 +201,7 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 3"));
     }
 
+    // none of many tasks in list are priority
     @Test
     public void testGetPrioritiesManyFalse() {
         fewItems.addTask("task 1", 5, false);
@@ -204,6 +215,7 @@ class ToDoListTest {
 
     }
 
+    // only the first item is priority
     @Test
     public void testGetPrioritiesManyFalseOneTrueStart() {
         fewItems.addTask("task 1", 5, true);
@@ -219,6 +231,7 @@ class ToDoListTest {
 
     }
 
+    // only a middle item is priority
     @Test
     public void testGetPrioritiesManyFalseOneTrueMiddle() {
         fewItems.addTask("task 1", 5, false);
@@ -234,6 +247,7 @@ class ToDoListTest {
 
     }
 
+    // only priority task is at end of list
     @Test
     public void testGetPrioritiesManyFalseOneTrueEnd() {
         fewItems.addTask("task 1", 5, false);
@@ -249,6 +263,7 @@ class ToDoListTest {
 
     }
 
+    // all but the last task are priority
     @Test
     public void testGetPrioritiesManyTrueOneFalseEnd() {
         fewItems.addTask("task 1", 5, true);
@@ -267,6 +282,7 @@ class ToDoListTest {
 
     }
 
+    // list has multiple priority, multiple not
     @Test
     public void testGetPrioritiesManyFalseManyTrue() {
         fewItems.addTask("task 1", 5, true);

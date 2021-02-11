@@ -5,7 +5,8 @@ import model.ToDoList;
 
 import java.util.Scanner;
 
-//Virtual study buddy application
+// Virtual study buddy application
+// NOTE: StudyBuddyApp(), runBuddy(), initialize(), and displayInputOptions() are taken and modified from Teller app
 public class StudyBuddyApp {
     private ToDoList todaysTodos;
     private Scanner input;
@@ -17,11 +18,11 @@ public class StudyBuddyApp {
     }
 
     // modified from Teller app
-    // MODIFIES: *****************************
+    // MODIFIES: this
     // EFFECTS: processes user input
     private void runBuddy() {
         boolean continueOn = true;
-        String command = null;
+        String command;
 
         initialize();
         introDisplay();
@@ -43,17 +44,20 @@ public class StudyBuddyApp {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiates new to do list and scanner
     private void initialize() {
         todaysTodos = new ToDoList();
-        input = new Scanner(System.in); //!!! << can't type enter before type input
+        input = new Scanner(System.in);
     }
 
-
+    // EFFECTS: displays prompt for setting up to do list
     private void introDisplay() {
         System.out.println("What would you like to accomplish today?");
         System.out.println("(Tip: split larger tasks into multiple smaller ones to make them more manageable)");
     }
 
+    // EFFECTS: displays menu of possible actions/inputs to user
     private void displayInputOptions() {
         System.out.println();
         System.out.println("Select from:");
@@ -64,7 +68,7 @@ public class StudyBuddyApp {
         System.out.println("end -> quit session");
     }
 
-
+    // EFFECTS: processes user input
     private void processCommand(String command) {
         switch (command) {
             case "add":
@@ -85,13 +89,17 @@ public class StudyBuddyApp {
         }
     }
 
+    // MODIFIES: this, todaysTodos
+    // EFFECTS: prompts user to input task information and creates the task
     private void createTask() {
         System.out.println();
         System.out.println("insert task name");
         input.nextLine();
         String name = input.nextLine();
+
         System.out.println("How long should it take? (in minutes)");
         int time = input.nextInt();
+
         System.out.println("Is it one of your main priorities for today? (yes/no)");
         String yesNo = input.next();
         boolean isPriority = yesNoToBoolean(yesNo);
@@ -100,6 +108,8 @@ public class StudyBuddyApp {
 
     }
 
+    // MODIFIES: this, todaysTodos
+    // EFFECTS: removes task in given position from to do list
     private void removeTask() {
         System.out.println();
         viewAllTasks();
@@ -109,6 +119,7 @@ public class StudyBuddyApp {
 
     }
 
+    // EFFECTS: displays all tasks in to do list
     private void viewAllTasks() {
         System.out.println();
         System.out.println("TO DO:");
@@ -122,6 +133,7 @@ public class StudyBuddyApp {
 
     }
 
+    // EFFECTS: displays task list filtered to priority
     private void viewPrioritiesOnly() {
         System.out.println();
 
@@ -134,10 +146,12 @@ public class StudyBuddyApp {
 
     }
 
+    // REQUIRES: "yes" or "no" in any letter casing
+    // EFFECTS: returns true if input was yes, false if no
     private boolean yesNoToBoolean(String yesNo) {
-        yesNo.toLowerCase();
+        String response = yesNo.toLowerCase();
 
-        return yesNo.equals("yes");
+        return response.equals("yes");
 
     }
 
