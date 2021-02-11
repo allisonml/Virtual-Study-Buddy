@@ -25,6 +25,10 @@ few minutes of break time each day and be able to see its impact over time. Stud
 shouldn't be the only thing they do. This app helps students to make sure to take care of themselves as a whole
 while they study (to stay healthy and not burn out) and maybe have just a little more fun along the way.
 
+If you look online, there are many "study with me" livestreams or videos with thousands or even millions of views.
+This would be like an application of that where instead they have a cute virtual study buddy character/animal to study 
+with, who will be available at any time, whether you have internet or not.
+
 Some potential additional features:
 - Customizable intervals
 - Choose your study buddy avatar

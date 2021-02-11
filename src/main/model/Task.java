@@ -30,6 +30,7 @@ public class Task {
         return this.isPriority;
     }
 
+    // EFFECTS: returns how task should be viewed
     public String getTaskView() {
         if (this.isPriority) {
             return this.name + "* (" + this.minutesNeeded + ")";
