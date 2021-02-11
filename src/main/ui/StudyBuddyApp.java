@@ -32,7 +32,7 @@ public class StudyBuddyApp {
             command = input.next();
             command = command.toLowerCase();
 
-            if (command.equals("end")) {
+            if (command.equals("bye")) {
                 continueOn = false;
             } else {
                 processCommand(command);
@@ -40,7 +40,7 @@ public class StudyBuddyApp {
 
         }
 
-        System.out.println("Great work! See you tomorrow:)");
+        System.out.println("Great work! Hope to see you again soon:)");
 
     }
 
@@ -53,6 +53,10 @@ public class StudyBuddyApp {
 
     // EFFECTS: displays prompt for setting up to do list
     private void introDisplay() {
+        System.out.println("Hey, nice to see you!");
+        System.out.println("(respond or press enter to begin session)");
+        input.nextLine();
+
         System.out.println("What would you like to accomplish today?");
         System.out.println("(Tip: split larger tasks into multiple smaller ones to make them more manageable)");
     }
@@ -65,7 +69,7 @@ public class StudyBuddyApp {
         System.out.println("remove -> remove a task");
         System.out.println("view -> view all todos");
         System.out.println("filter -> view only priority items");
-        System.out.println("end -> quit session");
+        System.out.println("bye -> leave session");
     }
 
     // EFFECTS: processes user input
