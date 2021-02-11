@@ -23,7 +23,8 @@ while they may be studying for long periods of time. I may also add a feature to
 break sessions (eg. do some stretches, tidy desk area, stream of consciousness) to allow users to make use of their 
 few minutes of break time each day and be able to see its impact over time. Students have to study to succeed, but it 
 shouldn't be the only thing they do. This app helps students to make sure to take care of themselves as a whole
-while they study (to stay healthy and not burn out) and maybe have just a little more fun along the way.
+while they study, helping them to stay healthy (unlike me getting lost in making this app and forgetting to eat dinner 
+until 8pm), not burn out, and maybe have just a little more fun along the way.
 
 If you look online, there are many "study with me" livestreams or videos with thousands or even millions of views.
 This would be like an application of that where instead they have a cute virtual study buddy character/animal to study 
