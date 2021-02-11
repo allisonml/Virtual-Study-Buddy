@@ -40,6 +40,7 @@ public class StudyBuddyApp {
 
         }
 
+        System.out.println();
         System.out.println("Great work! Hope to see you again soon:)");
 
     }

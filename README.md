@@ -27,7 +27,8 @@ while they study (to stay healthy and not burn out) and maybe have just a little
 
 If you look online, there are many "study with me" livestreams or videos with thousands or even millions of views.
 This would be like an application of that where instead they have a cute virtual study buddy character/animal to study 
-with, who will be available at any time, whether you have internet or not.
+with, who will be available at any time, whether you have internet or not, and not only keeps you accountable for your
+work, but also your health and habits.
 
 Some potential additional features:
 - Customizable intervals
