@@ -89,7 +89,7 @@ public class StudyBuddyApp {
                 viewPrioritiesOnly();
                 break;
             default:
-                System.out.println("Please choose from one of the option below");
+                System.out.println("Please choose from one of the options below");
                 break;
         }
     }
