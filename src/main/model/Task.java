@@ -20,10 +20,14 @@ public class Task {
         return this.name;
     }
 
+    /* (will need later)
+
     // EFFECTS: returns the time needed for this in minutes
     public int getMinutesNeeded() {
         return minutesNeeded;
     }
+
+     */
 
     // EFFECTS: returns true if this is a priority (to be completed today)
     public boolean getIsPriority() {
