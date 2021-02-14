@@ -10,9 +10,7 @@
 
 This app is meant to keep you focused and accountable for your independent studies. 
 The timer and built-in task list helps to reduce procrastination while the cute interface motivates users to use it 
-to stay on task and not disappoint their study buddy.   
-
-The intended audience is high school and university students, though it should be usable for students as young as 13
+to stay on task and not disappoint their study buddy. The intended audience is high school and university students, though it should be usable for students as young as 13
 and adult workers alike (maybe working from home!).  
 
 I came up with this idea because I wanted something that helps keep me on task (hence the timer), 

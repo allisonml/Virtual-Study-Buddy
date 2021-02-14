@@ -8,7 +8,7 @@ public class ToDoList {
     private List<Task> tasks;
 
 
-    // EFFECTS: constructs a new "to do" list with empty tasks
+    // EFFECTS: constructs a new "to do" list with no tasks
     public ToDoList() {
         this.tasks = new ArrayList<>();
 

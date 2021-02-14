@@ -3,6 +3,7 @@ package ui;
 import model.Task;
 import model.ToDoList;
 
+import java.util.List;
 import java.util.Scanner;
 
 // Virtual study buddy application
@@ -111,21 +112,27 @@ public class StudyBuddyApp {
 
         todaysTodos.addTask(name, time, isPriority);
 
+        int index = todaysTodos.getLength() - 1;
+        printTaskAddedOrRemoved(index, "added");
+
     }
 
     // MODIFIES: this, todaysTodos
     // EFFECTS: removes task in given position from to do list
     private void removeTask() {
         System.out.println();
-        viewAllTasks();
+        viewAllTasksNumbered();
         System.out.println("Which number task would you like to remove?");
+
         int num = input.nextInt();
+
+        printTaskAddedOrRemoved(num - 1, "removed");
         todaysTodos.removeTask(num);
 
     }
 
-    // EFFECTS: displays all tasks in to do list
-    private void viewAllTasks() {
+    // EFFECTS: displays all tasks in to do list numbered
+    private void viewAllTasksNumbered() {
         System.out.println();
         System.out.println("TO DO:");
         int i = 1;
@@ -138,17 +145,40 @@ public class StudyBuddyApp {
 
     }
 
-    // EFFECTS: displays task list filtered to priority
-    private void viewPrioritiesOnly() {
+    // EFFECTS: displays all tasks with bullets in the given list with the given title
+    private void viewListBulleted(List<Task> tasks, String name) {
         System.out.println();
 
-        ToDoList priorities = todaysTodos.getPrioritiesOnly();
-        System.out.println("TOP TODOS:");
+        System.out.println(name);
 
-        for (Task t : priorities.getToDos()) {
+        for (Task t : tasks) {
             System.out.println("> " + t.getTaskView());
         }
 
+    }
+
+    // EFFECTS: displays task list filtered to priority
+    private void viewPrioritiesOnly() {
+        ToDoList priorities = todaysTodos.getPrioritiesOnly();
+        List<Task> priorityTasks = priorities.getToDos();
+
+        viewListBulleted(priorityTasks, "TOP TODOS:");
+
+    }
+
+    // EFFECTS: displays task list
+    private void viewAllTasks() {
+        viewListBulleted(todaysTodos.getToDos(), "TO DO:");
+
+    }
+
+    // EFFECTS: print that the task of the given index is added or removed
+    private void printTaskAddedOrRemoved(int index, String action) {
+        Task task = todaysTodos.getToDos().get(index);
+        String view = task.getTaskView();
+
+        System.out.println();
+        System.out.println("\"" + view + "\" was " + action + "!");
     }
 
     // REQUIRES: "yes" or "no" in any letter casing

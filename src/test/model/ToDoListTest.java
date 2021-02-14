@@ -19,12 +19,11 @@ class ToDoListTest {
         oneItem = new ToDoList();
         fewItems = new ToDoList();
 
-
     }
 
     // addTask Tests
 
-    // no tasks added yet
+    // add task to an empty list
     @Test
     public void testAddTaskEmptyList() {
         assertEquals(0, emptyList.getLength());
@@ -35,6 +34,7 @@ class ToDoListTest {
         assertTrue(emptyList.getAllTaskNames().contains("210 prelecture"));
     }
 
+    // add task to a non-empty list
     @Test
     public void testAddTaskOneItemList() {
         oneItem.addTask("task 1", 5, true);
