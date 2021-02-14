@@ -120,8 +120,15 @@ public class StudyBuddyApp {
     // MODIFIES: this, todaysTodos
     // EFFECTS: removes task in given position from to do list
     private void removeTask() {
-        System.out.println();
+
+        if (todaysTodos.getLength() == 0) {
+            System.out.println();
+            System.out.println("(psst, there's no tasks to remove)");
+            return;
+        }
+
         viewAllTasksNumbered();
+        System.out.println();
         System.out.println("Which number task would you like to remove?");
 
         int num = input.nextInt();
