@@ -104,7 +104,21 @@ public class StudyBuddyApp {
         String name = input.nextLine();
 
         System.out.println("How long should it take? (in minutes)");
-        int time = input.nextInt();
+
+        boolean shouldRepeat = true;
+        int time = 0;
+        while (shouldRepeat) {
+            if (input.hasNextInt()) {
+                time = input.nextInt();
+            } else {
+                System.out.println("Please input an integer");
+                input.next();
+                continue;
+            }
+            shouldRepeat = false;
+
+        }
+       // int time = input.nextInt();
 
         System.out.println("Is it one of your main priorities for today? (yes/no)");
         String yesNo = input.next();
