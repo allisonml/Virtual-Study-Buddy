@@ -1,6 +1,7 @@
 package model;
 
 
+import org.json.JSONObject;
 import persistence.Writable;
 
 // represents a single task to be completed
@@ -45,5 +46,13 @@ public class Task implements Writable {
         }
     }
 
-
+    // EFFECTS: returns this task as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("minutesNeeded", minutesNeeded);
+        json.put("isPriority", isPriority);
+        return json;
+    }
 }

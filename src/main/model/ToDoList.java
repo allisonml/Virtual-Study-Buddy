@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
@@ -67,5 +69,24 @@ public class ToDoList implements Writable {
             names.add(t.getName());
         }
         return names;
+    }
+
+    // EFFECTS: returns this to do list as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("tasks", tasksToJson());
+        return json;
+    }
+
+    // EFFECTS: returns tasks in this to do list as a JSON array
+    public JSONArray tasksToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Task t : tasks) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
     }
 }

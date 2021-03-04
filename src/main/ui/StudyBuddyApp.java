@@ -2,18 +2,27 @@ package ui;
 
 import model.Task;
 import model.ToDoList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 // Virtual study buddy application
 // NOTE: StudyBuddyApp(), runBuddy(), initialize(), and displayInputOptions() are taken and modified from Teller app
 public class StudyBuddyApp {
+    private static final String JSON_STORE = "./data/todolist.json";
     private ToDoList todaysTodos;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     //EFFECTS: runs the study buddy application
     public StudyBuddyApp() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runBuddy();
 
     }
@@ -34,6 +43,7 @@ public class StudyBuddyApp {
             command = command.toLowerCase();
 
             if (command.equals("bye")) {
+                promptToSave();
                 continueOn = false;
             } else {
                 processCommand(command);
@@ -63,10 +73,21 @@ public class StudyBuddyApp {
         System.out.println("(Tip: split larger tasks into multiple smaller ones to make them more manageable)");
     }
 
+    public void promptToSave() {
+        System.out.println("Before you leave, would you like to save your current to do list for later?");
+        System.out.println("(Type yes or no)");
+        String toSave = input.next();
+        if (yesNoToBoolean(toSave)) {
+            saveToDoList();
+        }
+    }
+
     // EFFECTS: displays menu of possible actions/inputs to user
     private void displayInputOptions() {
         System.out.println();
         System.out.println("Select from:");
+        System.out.println("load -> load previously saved todos from file");
+        System.out.println("save -> save current todos to file");
         System.out.println("add -> add a task");
         System.out.println("remove -> remove a task");
         System.out.println("view -> view all todos");
@@ -77,6 +98,12 @@ public class StudyBuddyApp {
     // EFFECTS: processes user input
     private void processCommand(String command) {
         switch (command) {
+            case "load":
+                loadToDoList();
+                break;
+            case "save":
+                saveToDoList();
+                break;
             case "add":
                 createTask();
                 break;
@@ -118,7 +145,7 @@ public class StudyBuddyApp {
             shouldRepeat = false;
 
         }
-       // int time = input.nextInt();
+        // int time = input.nextInt();
 
         System.out.println("Is it one of your main priorities for today? (yes/no)");
         String yesNo = input.next();
@@ -209,6 +236,29 @@ public class StudyBuddyApp {
 
         return response.equals("yes");
 
+    }
+
+    // EFFECTS: saves the to do list to file
+    private void saveToDoList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(todaysTodos);
+            jsonWriter.close();
+            System.out.println("Saved current todos to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads to do list from file
+    private void loadToDoList() {
+        try {
+            todaysTodos = jsonReader.read();
+            System.out.println("Loaded current todos from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 
