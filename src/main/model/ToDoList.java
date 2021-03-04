@@ -1,10 +1,12 @@
 package model;
 
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // represents a list of tasks to complete during the current study session
-public class ToDoList {
+public class ToDoList implements Writable {
     private List<Task> tasks;
 
 

@@ -1,8 +1,10 @@
 package model;
 
 
+import persistence.Writable;
+
 // represents a single task to be completed
-public class Task {
+public class Task implements Writable {
     private String name;
     private int minutesNeeded;
     private boolean isPriority;
