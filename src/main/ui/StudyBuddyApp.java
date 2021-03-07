@@ -73,6 +73,7 @@ public class StudyBuddyApp {
         System.out.println("(Tip: split larger tasks into multiple smaller ones to make them more manageable)");
     }
 
+    // EFFECTS: saves current to do list to file if user says yes to prompt
     public void promptToSave() {
         System.out.println("Before you leave, would you like to save your current to do list for later?");
         System.out.println("(Type yes or no)");

@@ -11,13 +11,16 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 // Modelled from JsonSerializationDemo
+// represents a reader that reads todolist from JSON data stored in file
 public class JsonReader {
     private String source;
 
+    // EFFECTS: constructs a JsonReader to read from the given source
     public JsonReader(String source) {
         this.source = source;
     }
 
+    // EFFECTS: reads to do list from file and returns it
     public ToDoList read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -58,7 +61,7 @@ public class JsonReader {
         String name = jsonObject.getString("name");
         int minutesNeeded = jsonObject.getInt("minutesNeeded");
         boolean isPriority = jsonObject.getBoolean("isPriority");
-        // !!!
+
         todos.addTask(name, minutesNeeded, isPriority);
     }
 

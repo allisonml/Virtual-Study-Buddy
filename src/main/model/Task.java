@@ -23,7 +23,7 @@ public class Task implements Writable {
         return this.name;
     }
 
-    /* (will need later)
+    /* (may need later)
 
     // EFFECTS: returns the time needed for this in minutes
     public int getMinutesNeeded() {
