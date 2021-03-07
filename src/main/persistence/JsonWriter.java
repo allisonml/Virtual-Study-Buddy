@@ -7,8 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// Modelled from JsonSerializationDemo
 // represents a JSON writer to convert an object to JSON text and save
+// includes code taken and modified from JsonSerializationDemo
 public class JsonWriter {
     private static final int INDENT = 4;
     private PrintWriter writer;

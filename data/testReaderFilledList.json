@@ -1,0 +1,17 @@
+{"tasks": [
+  {
+    "name": "vacuum",
+    "minutesNeeded": 30,
+    "isPriority": true
+  },
+  {
+    "name": "math webwork",
+    "minutesNeeded": 60,
+    "isPriority": true
+  },
+  {
+    "name": "run",
+    "minutesNeeded": 40,
+    "isPriority": false
+  }
+]}

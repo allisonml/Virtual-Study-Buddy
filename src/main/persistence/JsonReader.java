@@ -10,8 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-// Modelled from JsonSerializationDemo
 // represents a reader that reads todolist from JSON data stored in file
+// includes code taken and modified from JsonSerializationDemo
 public class JsonReader {
     private String source;
 
