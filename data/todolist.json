@@ -1,0 +1,17 @@
+{"tasks": [
+    {
+        "name": "vacuum",
+        "minutesNeeded": 20,
+        "isPriority": false
+    },
+    {
+        "name": "math hw",
+        "minutesNeeded": 60,
+        "isPriority": true
+    },
+    {
+        "name": "why are they talking so loudly",
+        "minutesNeeded": 100,
+        "isPriority": false
+    }
+]}
