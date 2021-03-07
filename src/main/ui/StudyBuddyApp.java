@@ -42,7 +42,7 @@ public class StudyBuddyApp {
             command = input.next();
             command = command.toLowerCase();
 
-            if (command.equals("b")) {
+            if (command.equals("7")) {
                 promptToSave();
                 continueOn = false;
             } else {
@@ -76,8 +76,8 @@ public class StudyBuddyApp {
     // EFFECTS: saves current to do list to file if user says yes to prompt
     public void promptToSave() {
         System.out.println("Before you leave, would you like to save your current to do list for later?");
-        System.out.println("y -> yes");
-        System.out.println("n -> no");
+        System.out.println("1 -> yes");
+        System.out.println("2 -> no");
         String toSave = input.next();
         if (yesNoToBoolean(toSave)) {
             saveToDoList();
@@ -88,34 +88,34 @@ public class StudyBuddyApp {
     private void displayInputOptions() {
         System.out.println();
         System.out.println("Select from:");
-        System.out.println("l -> load previously saved todos from file");
-        System.out.println("s -> save current todos to file");
-        System.out.println("a -> add a task");
-        System.out.println("r -> remove a task");
-        System.out.println("v -> view all todos");
-        System.out.println("f -> filter todos to view only priority items");
-        System.out.println("b -> bye! (leave session)");
+        System.out.println("1 -> load previously saved todos from file");
+        System.out.println("2 -> save current todos to file");
+        System.out.println("3 -> add a task");
+        System.out.println("4 -> remove a task");
+        System.out.println("5 -> view all todos");
+        System.out.println("6 -> filter todos to view only priority items");
+        System.out.println("7 -> bye! (leave session)");
     }
 
     // EFFECTS: processes user input
     private void processCommand(String command) {
         switch (command) {
-            case "l":
+            case "1":
                 loadToDoList();
                 break;
-            case "s":
+            case "2":
                 saveToDoList();
                 break;
-            case "a":
+            case "3":
                 createTask();
                 break;
-            case "r":
+            case "4":
                 removeTask();
                 break;
-            case "v":
+            case "5":
                 viewAllTasks();
                 break;
-            case "f":
+            case "6":
                 viewPrioritiesOnly();
                 break;
             default:
@@ -151,8 +151,8 @@ public class StudyBuddyApp {
         // int time = input.nextInt();
 
         System.out.println("Is it one of your main priorities for today?");
-        System.out.println("y -> yes");
-        System.out.println("n -> no");
+        System.out.println("1 -> yes");
+        System.out.println("2 -> no");
         String yesNo = input.next();
         boolean isPriority = yesNoToBoolean(yesNo);
 
@@ -252,12 +252,12 @@ public class StudyBuddyApp {
         System.out.println("\"" + view + "\" was " + action + "!");
     }
 
-    // REQUIRES: "y" or "n" in any letter casing
-    // EFFECTS: returns true if input was yes, false if no
+    // REQUIRES: "1" or "2"
+    // EFFECTS: returns true if input was 1, false if 2
     private boolean yesNoToBoolean(String yesNo) {
         String response = yesNo.toLowerCase();
 
-        return response.equals("y");
+        return response.equals("1");
 
     }
 

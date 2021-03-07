@@ -10,13 +10,13 @@
         "isPriority": true
     },
     {
-        "name": "bio readings",
-        "minutesNeeded": 120,
-        "isPriority": true
-    },
-    {
         "name": "idk",
         "minutesNeeded": 10,
         "isPriority": false
+    },
+    {
+        "name": "tidy desk",
+        "minutesNeeded": 20,
+        "isPriority": true
     }
 ]}
