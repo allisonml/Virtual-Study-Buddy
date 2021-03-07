@@ -1,7 +1,8 @@
-package model;
+package persistence;
 
+import model.Task;
+import model.ToDoList;
 import org.junit.jupiter.api.Test;
-import persistence.JsonReader;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 // tests for JsonReader class
 // code taken and modified from JsonSerializationDemo
-public class JsonReaderTest extends JsonTest{
+public class JsonReaderTest extends JsonTest {
 
     // can't find the file / nothing has previously been saved
     @Test

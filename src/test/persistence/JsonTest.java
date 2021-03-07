@@ -1,4 +1,6 @@
-package model;
+package persistence;
+
+import model.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

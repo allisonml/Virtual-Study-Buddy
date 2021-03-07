@@ -1,7 +1,10 @@
-package model;
+package persistence;
 
+import model.Task;
+import model.ToDoList;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
+import persistence.JsonTest;
 import persistence.JsonWriter;
 
 import java.io.IOException;
@@ -12,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 // tests for JsonWriter class
 // code taken and modified from JsonSerializationDemo
-public class JsonWriterTest extends JsonTest{
+public class JsonWriterTest extends JsonTest {
 
     // invalid file, IOException thrown
     @Test
