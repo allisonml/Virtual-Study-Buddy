@@ -44,5 +44,6 @@ Phase 1:
 - As a user, I want to be able to view my todo list filtered based on priority
 
 Phase 2:
+- As a user, I want to be able to save my current todo list to file
 - As a user, I want to have the option to upload a previous todo list from file upon application startup
-- As a user, I want to be prompted to save my current todos before I end the session and be able to do so
+- As a user, I want to be prompted to save my current todos or not before I end the session and be able to do so if desired
