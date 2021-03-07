@@ -45,5 +45,5 @@ Phase 1:
 
 Phase 2:
 - As a user, I want to be able to save my current todo list to file
-- As a user, I want to have the option to upload a previous todo list from file upon application startup
+- As a user, I want to be able to load the most previously saved todo list from file
 - As a user, I want to be prompted to save my current todos or not before I end the session and be able to do so if desired
