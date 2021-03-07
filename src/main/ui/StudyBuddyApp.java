@@ -135,21 +135,6 @@ public class StudyBuddyApp {
         System.out.println("How long should it take? (in minutes)");
         int time = processTimeInput();
 
-//        boolean shouldRepeat = true;
-//        int time = 0;
-//        while (shouldRepeat) {
-//            if (input.hasNextInt()) {
-//                time = input.nextInt();
-//            } else {
-//                System.out.println("Please input an integer");
-//                input.next();
-//                continue;
-//            }
-//            shouldRepeat = false;
-//
-//        }
-        // int time = input.nextInt();
-
         System.out.println("Is it one of your main priorities for today?");
         System.out.println("1 -> yes");
         System.out.println("2 -> no");
