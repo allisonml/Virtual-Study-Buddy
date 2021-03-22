@@ -1,22 +1,17 @@
 {"tasks": [
-    {
-        "name": "math webwork",
-        "minutesNeeded": 60,
-        "isPriority": true
-    },
-    {
-        "name": "210 specifications",
-        "minutesNeeded": 30,
-        "isPriority": true
-    },
-    {
-        "name": "idk",
-        "minutesNeeded": 10,
-        "isPriority": false
-    },
-    {
-        "name": "tidy desk",
-        "minutesNeeded": 20,
-        "isPriority": true
-    }
+  {
+    "name": "vacuum",
+    "minutesNeeded": 30,
+    "isPriority": true
+  },
+  {
+    "name": "math webwork",
+    "minutesNeeded": 60,
+    "isPriority": true
+  },
+  {
+    "name": "run",
+    "minutesNeeded": 40,
+    "isPriority": false
+  }
 ]}
