@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,7 +64,7 @@ public class StudyBuddyApp extends JFrame {
 //            }
 //        });
 
-        jList = new JList();
+        jList = new JList(viewAllTasksNumbered().toArray());
         jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jList.setSelectedIndex(0);
         //jList.addListSelectionListener();
@@ -132,7 +133,7 @@ public class StudyBuddyApp extends JFrame {
     }
 
     private void createTaskList() {
-        //todaysTodos = new ToDoList(); // !!!
+        todaysTodos = new ToDoList(); // !!!
         taskListArea = new TaskListGUI(this);
         add(taskListArea, BorderLayout.CENTER);
 
@@ -282,6 +283,12 @@ public class StudyBuddyApp extends JFrame {
         //int index = todaysTodos.getLength() - 1;
         //printTaskAddedOrRemoved(index, "added");
 
+        updateListView();
+
+    }
+
+    private void updateListView() {
+        jList.setListData(viewAllTasksNumbered().toArray());
     }
 
     private int processTimeInput() {
@@ -305,37 +312,48 @@ public class StudyBuddyApp extends JFrame {
     // MODIFIES: this, todaysTodos
     // EFFECTS: removes task in given position from to do list
     private void removeTask() {
+        promptLabel.setText("removing current selection...");
+
+        int num = jList.getSelectedIndex();
+
+
+
 
         //popup, label at top with question, view of list, number of indexes at bottom?
         // or just like in listDemo
-        if (todaysTodos.getLength() == 0) {
-            System.out.println();
-            System.out.println("(psst, there's no tasks to remove)");
-            return;
-        }
-
-        viewAllTasksNumbered();
-        System.out.println();
-        System.out.println("Which number task would you like to remove?");
-
-        int num = input.nextInt();
-
-        printTaskAddedOrRemoved(num - 1, "removed");
+//        if (todaysTodos.getLength() == 0) {
+//            System.out.println();
+//            System.out.println("(psst, there's no tasks to remove)");
+//            return;
+//        }
+//
+//        viewAllTasksNumbered();
+//        System.out.println();
+//        System.out.println("Which number task would you like to remove?");
+//
+//        int num = input.nextInt();
+//
+//        printTaskAddedOrRemoved(num - 1, "removed");
         todaysTodos.removeTask(num);
+
+        updateListView();
 
     }
 
     // EFFECTS: displays all tasks in to do list numbered
-    private void viewAllTasksNumbered() {
-        System.out.println();
-        System.out.println("TO DO:");
+    private List<String> viewAllTasksNumbered() {
+//        System.out.println();
+//        System.out.println("TO DO:");
+        List<String> taskViews = new ArrayList<>();
         int i = 1;
 
         for (Task t : todaysTodos.getToDos()) {
 
-            System.out.println(i + ". " + t.getTaskView());
+            taskViews.add(i + ". " + t.getTaskView());
             i++;
         }
+
+        return taskViews;
 
     }
 
@@ -406,6 +424,7 @@ public class StudyBuddyApp extends JFrame {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+        updateListView();
     }
 
 
