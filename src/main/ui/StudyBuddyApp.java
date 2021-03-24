@@ -38,6 +38,7 @@ public class StudyBuddyApp extends JFrame {
     //EFFECTS: runs the study buddy application
     public StudyBuddyApp() {
         super("Study Buddy UI");
+        todaysTodos = new ToDoList();
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -45,10 +46,13 @@ public class StudyBuddyApp extends JFrame {
         tipLabel = new JLabel(TODO_TIP);
         add(tipLabel, BorderLayout.NORTH);
 
-        promptLabel = new JLabel("");
-        add(promptLabel, BorderLayout.WEST);
+        AddTaskPanel addTaskPanel = new AddTaskPanel(this);
+        add(addTaskPanel, BorderLayout.WEST);
+        addTaskPanel.setVisible(true);
+//        promptLabel = new JLabel("prompt label is visible");
+//        add(promptLabel, BorderLayout.WEST);
 
-        createTaskList();
+        //createTaskList();
 
         //jList = new JList(todaysTodos.getToDos().toArray());
         //add(jList, BorderLayout.EAST);
@@ -90,8 +94,9 @@ public class StudyBuddyApp extends JFrame {
         });
 
         JButton removeButton = new JButton("remove");
-        saveButton.setActionCommand("remove");
-        saveButton.addActionListener(new ActionListener() {
+        removeButton.setActionCommand("remove");
+        removeButton.setBackground(Color.red);
+        removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 removeTask();
             }
@@ -103,10 +108,12 @@ public class StudyBuddyApp extends JFrame {
         //add(textField, BorderLayout.CENTER);
 
         JButton addButton = new JButton("add");
-        saveButton.setActionCommand("add");
-        saveButton.addActionListener(new ActionListener() {
+        addButton.setActionCommand("add");
+        addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createTask();
+                todaysTodos.addTask(textField.getText(), 0, false); // !!!
+                updateListView();
+                //createTask();
             }
         });
 
@@ -132,55 +139,48 @@ public class StudyBuddyApp extends JFrame {
 
     }
 
-    private void createTaskList() {
-        todaysTodos = new ToDoList(); // !!!
-        taskListArea = new TaskListGUI(this);
-        add(taskListArea, BorderLayout.CENTER);
-
-    }
-
-//    private String[] listToStringArray(List<Task> tasks) {
-//        String [] list = new String[];
-//        //List<Task> tasks = todaysTodos.getToDos();
-//        for (int i = 0; i < todaysTodos.getLength(); i++) {
-//            list[i] = tasks.get(i).getTaskView();
-//        }
+//    private void createTaskList() {
+//        todaysTodos = new ToDoList(); // !!!
+//        taskListArea = new TaskListGUI(this);
+//        add(taskListArea, BorderLayout.EAST);
+//
 //    }
+
 
     // modified from Teller app
     // MODIFIES: this
     // EFFECTS: processes user input
-    private void runBuddy() {
-        boolean continueOn = true;
-        String command;
-
-        initialize();
-        introDisplay();
-
-        while (continueOn) {
-            displayInputOptions();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("7")) {
-                promptToSave();
-                continueOn = false;
-            } else {
-                processCommand(command);
-            }
-
-        }
-
-        System.out.println();
-        System.out.println("Great work! Hope to see you again soon:)");
-
-    }
+//    private void runBuddy() {
+//        boolean continueOn = true;
+//        String command;
+//
+//        initialize();
+//        introDisplay();
+//
+//        while (continueOn) {
+//            displayInputOptions();
+//            command = input.next();
+//            command = command.toLowerCase();
+//
+//            if (command.equals("7")) {
+//                promptToSave();
+//                continueOn = false;
+//            } else {
+//                processCommand(command);
+//            }
+//
+//        }
+//
+//        System.out.println();
+//        System.out.println("Great work! Hope to see you again soon:)");
+//
+//    }
 
     // MODIFIES: this
     // EFFECTS: instantiates new to do list and scanner
     private void initialize() {
         todaysTodos = new ToDoList();
-        input = new Scanner(System.in);// !!!
+        //input = new Scanner(System.in);// !!!
     }
 
     // EFFECTS: displays prompt for setting up to do list
@@ -220,74 +220,23 @@ public class StudyBuddyApp extends JFrame {
         System.out.println("7 -> bye! (leave session)");
     }
 
-    // EFFECTS: processes user input
-    private void processCommand(String command) {
-        // actionlisteners?
-        switch (command) {
-            case "1":
-                loadToDoList();
-                break;
-            case "2":
-                saveToDoList();
-                break;
-            case "3":
-                createTask();
-                break;
-            case "4":
-                removeTask();
-                break;
-            case "5":
-                viewAllTasks();
-                break;
-            case "6":
-                viewPrioritiesOnly();
-                break;
-            default:
-                System.out.println("Please choose from one of the options below");
-                break;
-        }
-    }
 
     // MODIFIES: this, todaysTodos
     // EFFECTS: prompts user to input task information and creates the task
     private void createTask() {
         //maybe do in a pop up, prompts and 3 text fields in one pop up panel
-//        System.out.println();
-//        System.out.println("insert task name");
-        promptLabel.setText("insert task name");
-        JButton enterButton = new JButton("enter");
-        textField = new JTextField(20);
-        textField.setBorder(BorderFactory.createLineBorder(Color.green));
-        add(textField, BorderLayout.CENTER);
-        textField.setVisible(true);
-        enterButton.setActionCommand("enter");
-        enterButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String name = textField.getText();
-            }
-        });
-//        input.nextLine();
-//        String name = input.nextLine();
-//
-//        System.out.println("How long should it take? (in minutes)");
-//        int time = processTimeInput();
-//
-//        System.out.println("Is it one of your main priorities for today?");
-//        System.out.println("1 -> yes");
-//        System.out.println("2 -> no");
-//        String yesNo = input.next();
-//        boolean isPriority = yesNoToBoolean(yesNo);
 
-        //todaysTodos.addTask(name, time, isPriority);
-
-        //int index = todaysTodos.getLength() - 1;
-        //printTaskAddedOrRemoved(index, "added");
+        promptLabel.setVisible(false);
+        AddTaskPanel addTaskPanel = new AddTaskPanel(this);
+        this.add(addTaskPanel, BorderLayout.CENTER);
+        addTaskPanel.setVisible(true);
 
         updateListView();
 
+
     }
 
-    private void updateListView() {
+    public void updateListView() {
         jList.setListData(viewAllTasksNumbered().toArray());
     }
 
@@ -312,9 +261,13 @@ public class StudyBuddyApp extends JFrame {
     // MODIFIES: this, todaysTodos
     // EFFECTS: removes task in given position from to do list
     private void removeTask() {
-        promptLabel.setText("removing current selection...");
+        //promptLabel.setText("removing current selection...");
 
         int num = jList.getSelectedIndex();
+
+        todaysTodos.removeTask(num);
+
+        updateListView();
 
 
 
@@ -334,9 +287,7 @@ public class StudyBuddyApp extends JFrame {
 //        int num = input.nextInt();
 //
 //        printTaskAddedOrRemoved(num - 1, "removed");
-        todaysTodos.removeTask(num);
 
-        updateListView();
 
     }
 
@@ -425,6 +376,10 @@ public class StudyBuddyApp extends JFrame {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
         updateListView();
+    }
+
+    public ToDoList getToDoList() {
+        return this.todaysTodos;
     }
 
 
