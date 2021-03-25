@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,18 +23,16 @@ import java.util.Scanner;
 // Virtual study buddy application
 // NOTE: StudyBuddyApp(), runBuddy(), initialize(), and displayInputOptions() are taken and modified from Teller app
 // Includes code taken and modified from C3-LectureLabStarter, Oracle ListDemo
-public class StudyBuddyApp extends JPanel {
+public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
     private static final String TODO_TIP = "Tip: split larger tasks into multiple smaller ones to make them more manageable";
     private ToDoList todaysTodos;
-    private Scanner input; // !!!
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private JLabel promptLabel;
     private JLabel tipLabel;
-    private TaskListGUI taskListArea;
     private JTextField textField;
-    private JList jList;
+    private JList jlist;
     //= new JList(todaysTodos.getAllTaskNames().toArray(new String[0]));
 
     //EFFECTS: runs the study buddy application
@@ -51,33 +51,20 @@ public class StudyBuddyApp extends JPanel {
         AddTaskPanel addTaskPanel = new AddTaskPanel(this);
 //        addTaskPanel.setAlignmentX(10);
 //        addTaskPanel.setAlignmentY(10);
-        add(addTaskPanel, BorderLayout.WEST);
+        //add(addTaskPanel, BorderLayout.WEST);
         addTaskPanel.setVisible(true);
-        promptLabel = new JLabel("prompt label is visible");
-        add(promptLabel, BorderLayout.WEST);
-
-        //createTaskList();
-
-        //jList = new JList(todaysTodos.getToDos().toArray());
-        //add(jList, BorderLayout.EAST);
-        //jList.set
+//        promptLabel = new JLabel("prompt label is visible");
+//        add(promptLabel, BorderLayout.WEST);
 
 
-//        JButton enterButton = new JButton("enter");
-//        textField = new JTextField(10);
-//        enterButton.setActionCommand("enter");
-//        enterButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                textField.
-//            }
-//        });
 
-        jList = new JList(viewAllTasksNumbered().toArray());
-        jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jList.setSelectedIndex(0);
-        //jList.addListSelectionListener();
-        jList.setVisibleRowCount(10);
-        JScrollPane scrollPane = new JScrollPane(jList);
+        jlist = new JList(viewAllTasksNumbered().toArray());
+        jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jlist.setSelectedIndex(0);
+        jlist.setVisibleRowCount(10);
+        jlist.setFixedCellWidth(this.getWidth() / 2);
+
+        JScrollPane scrollPane = new JScrollPane(jlist);
         add(scrollPane, BorderLayout.EAST);
 
 
@@ -106,29 +93,30 @@ public class StudyBuddyApp extends JPanel {
             }
         });
 
-        textField = new JTextField(20);
-        textField.setSize(30,10);
-        textField.setBorder(BorderFactory.createLineBorder(Color.green));
+
+//        textField = new JTextField(20);
+//        textField.setSize(30,10);
+//        textField.setBorder(BorderFactory.createLineBorder(Color.green));
         //add(textField, BorderLayout.CENTER);
 
-        JButton addButton = new JButton("add");
-        addButton.setActionCommand("add");
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Task task = new Task(textField.getText());
-                todaysTodos.addTask(task); // !!!
-                updateListView();
-                //createTask();
-            }
-        });
+//        JButton addButton = new JButton("add");
+//        addButton.setActionCommand("add");
+//        addButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                Task task = new Task(textField.getText());
+//                todaysTodos.addTask(task); // !!!
+//                updateListView();
+//                //createTask();
+//            }
+//        });
 
         JPanel bottomPane = new JPanel();
         bottomPane.setLayout(new BoxLayout(bottomPane, BoxLayout.X_AXIS));
         bottomPane.add(loadButton);
         bottomPane.add(saveButton);
         bottomPane.add(removeButton);
-        bottomPane.add(textField);
-        bottomPane.add(addButton);
+        //bottomPane.add(textField);
+        //bottomPane.add(addButton);
 
         add(bottomPane, BorderLayout.PAGE_END);
 
@@ -136,7 +124,7 @@ public class StudyBuddyApp extends JPanel {
 
         //add other components
 
-        //pack();
+        pack();
         setVisible(true);
 
 
@@ -156,29 +144,13 @@ public class StudyBuddyApp extends JPanel {
     // MODIFIES: this
     // EFFECTS: processes user input
 //    private void runBuddy() {
-//        boolean continueOn = true;
-//        String command;
-//
 //        initialize();
 //        introDisplay();
 //
-//        while (continueOn) {
-//            displayInputOptions();
-//            command = input.next();
-//            command = command.toLowerCase();
-//
-//            if (command.equals("7")) {
-//                promptToSave();
-//                continueOn = false;
-//            } else {
-//                processCommand(command);
-//            }
-//
-//        }
-//
+// put quit button
+
 //        System.out.println();
 //        System.out.println("Great work! Hope to see you again soon:)");
-//
 //    }
 
     // MODIFIES: this
@@ -193,22 +165,21 @@ public class StudyBuddyApp extends JPanel {
         //change or initialize prompt label
         System.out.println("Hey, nice to see you!");
         System.out.println("(respond or press enter to begin session)");
-        input.nextLine();
+        //input.nextLine();
 
         System.out.println("What would you like to accomplish today?");
         System.out.println("(Tip: split larger tasks into multiple smaller ones to make them more manageable)");
     }
 
     // EFFECTS: saves current to do list to file if user says yes to prompt
-    public void promptToSave() {
+    public String promptToSaveString() {
         // pop up
-        System.out.println("Before you leave, would you like to save your current to do list for later?");
-        System.out.println("1 -> yes");
-        System.out.println("2 -> no");
-        String toSave = input.next();
-        if (yesNoToBoolean(toSave)) {
-            saveToDoList();
-        }
+        //can make yes/no button
+        return "Before you leave, would you like to save your current to do list for later?";
+
+//        if (yesNoToBoolean(toSave)) {
+//            saveToDoList();
+//        }
     }
 
     // EFFECTS: displays menu of possible actions/inputs to user
@@ -241,58 +212,34 @@ public class StudyBuddyApp extends JPanel {
 
     }
 
+    public JButton setUpButton(String name, Color colour) {
+        JButton button = new JButton(name);
+        button.setActionCommand(name);
+        button.setBackground(colour);
+        return button;
+    }
+
+    public void setUpButtonPane() {
+
+    }
+
     public void updateListView() {
-        jList.setListData(viewAllTasksNumbered().toArray());
+        jlist.setListData(viewAllTasksNumbered().toArray());
     }
 
-    private int processTimeInput() {
-        boolean shouldRepeat = true;
-        int time = 0;
-        while (shouldRepeat) {
-            if (input.hasNextInt()) {
-                time = input.nextInt();
-            } else {
-                System.out.println("Please input an integer");
-                input.next();
-                continue;
-            }
-            shouldRepeat = false;
-
-        }
-        return time;
-
-    }
 
     // MODIFIES: this, todaysTodos
     // EFFECTS: removes task in given position from to do list
     private void removeTask() {
         //promptLabel.setText("removing current selection...");
+        //popup, label at top with question, view of list, number of indexes at bottom?
+        // or just like in listDemo
 
-        int num = jList.getSelectedIndex();
+        int num = jlist.getSelectedIndex();
 
         todaysTodos.removeTask(num);
 
         updateListView();
-
-
-
-
-        //popup, label at top with question, view of list, number of indexes at bottom?
-        // or just like in listDemo
-//        if (todaysTodos.getLength() == 0) {
-//            System.out.println();
-//            System.out.println("(psst, there's no tasks to remove)");
-//            return;
-//        }
-//
-//        viewAllTasksNumbered();
-//        System.out.println();
-//        System.out.println("Which number task would you like to remove?");
-//
-//        int num = input.nextInt();
-//
-//        printTaskAddedOrRemoved(num - 1, "removed");
-
 
     }
 
