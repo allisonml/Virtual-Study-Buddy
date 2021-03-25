@@ -30,4 +30,10 @@ public class TaskTest {
         assertEquals(task1.getTaskView(), "task a (1)");
     }
 
+    @Test
+    public void testGetTaskViewNoTimeNoPriority() {
+        task1 = new Task("task a");
+        assertEquals(task1.getTaskView(), "task a");
+    }
+
 }

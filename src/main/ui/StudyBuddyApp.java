@@ -21,7 +21,7 @@ import java.util.Scanner;
 // Virtual study buddy application
 // NOTE: StudyBuddyApp(), runBuddy(), initialize(), and displayInputOptions() are taken and modified from Teller app
 // Includes code taken and modified from C3-LectureLabStarter, Oracle ListDemo
-public class StudyBuddyApp extends JFrame {
+public class StudyBuddyApp extends JPanel {
     private static final String JSON_STORE = "./data/todolist.json";
     private static final String TODO_TIP = "Tip: split larger tasks into multiple smaller ones to make them more manageable";
     private ToDoList todaysTodos;
@@ -37,20 +37,24 @@ public class StudyBuddyApp extends JFrame {
 
     //EFFECTS: runs the study buddy application
     public StudyBuddyApp() {
-        super("Study Buddy UI");
+        //super("Study Buddy UI");
         todaysTodos = new ToDoList();
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
         tipLabel = new JLabel(TODO_TIP);
+        tipLabel.setAlignmentX(10);
+        tipLabel.setAlignmentY(10);
         add(tipLabel, BorderLayout.NORTH);
 
         AddTaskPanel addTaskPanel = new AddTaskPanel(this);
+//        addTaskPanel.setAlignmentX(10);
+//        addTaskPanel.setAlignmentY(10);
         add(addTaskPanel, BorderLayout.WEST);
         addTaskPanel.setVisible(true);
-//        promptLabel = new JLabel("prompt label is visible");
-//        add(promptLabel, BorderLayout.WEST);
+        promptLabel = new JLabel("prompt label is visible");
+        add(promptLabel, BorderLayout.WEST);
 
         //createTaskList();
 
@@ -111,7 +115,8 @@ public class StudyBuddyApp extends JFrame {
         addButton.setActionCommand("add");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                todaysTodos.addTask(textField.getText(), 0, false); // !!!
+                Task task = new Task(textField.getText());
+                todaysTodos.addTask(task); // !!!
                 updateListView();
                 //createTask();
             }
@@ -131,7 +136,7 @@ public class StudyBuddyApp extends JFrame {
 
         //add other components
 
-        pack();
+        //pack();
         setVisible(true);
 
 

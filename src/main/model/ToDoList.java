@@ -12,7 +12,6 @@ import java.util.List;
 public class ToDoList implements Writable {
     private List<Task> tasks;
 
-
     // EFFECTS: constructs a new "to do" list with no tasks
     public ToDoList() {
         this.tasks = new ArrayList<>();
@@ -26,6 +25,10 @@ public class ToDoList implements Writable {
     public void addTask(String name, int minutesNeeded, boolean isPriority) {
         Task newTask = new Task(name, minutesNeeded, isPriority);
         this.tasks.add(newTask);
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 
     // REQUIRES: 0 <= taskNum < task list size, tasks is non-empty

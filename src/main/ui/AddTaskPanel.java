@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddTaskPanel extends JPanel {
+public class AddTaskPanel extends JFrame {
     private JTextField taskNameField;
     private JSpinner timeField;
     private JComboBox priority;
@@ -65,6 +65,7 @@ public class AddTaskPanel extends JPanel {
         addTaskPanel.add(taskInfoPane, BorderLayout.NORTH);
         addTaskPanel.add(addTaskButton, BorderLayout.SOUTH);
 
+        addTaskPanel.setSize(40,40);
         addTaskPanel.setVisible(true);
 
     }
