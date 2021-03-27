@@ -40,10 +40,11 @@ public class AddTaskPanel extends JPanel {
         addTaskPanel.setLayout(new BorderLayout());
         addTaskPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         addTaskPanel.setAlignmentY(studyBuddyApp.CENTER_ALIGNMENT);
+        addTaskPanel.setBorder(BorderFactory.createLineBorder(Color.lightGray));
         addTaskPanel.add(taskInfoPane, BorderLayout.NORTH);
         addTaskPanel.add(addTaskButton, BorderLayout.SOUTH);
 
-        addTaskPanel.setSize(40,40);
+        addTaskPanel.setSize(40, 40);
         addTaskPanel.setVisible(true);
         studyBuddyApp.add(addTaskPanel);
 
@@ -67,10 +68,11 @@ public class AddTaskPanel extends JPanel {
     private JPanel getInputPriorityPanel() {
         priority = new JComboBox(yesNo);
         priority.setSelectedIndex(0);
+        priority.setBorder(BorderFactory.createLineBorder(Color.yellow));
         JLabel priorityPrompt = new JLabel("Is it one of your main priorities for today?");
         JPanel priorityPanel = new JPanel();
         priorityPanel.setLayout(new BoxLayout(priorityPanel, BoxLayout.X_AXIS));
-        priorityPanel.add(priority,BoxLayout.X_AXIS);
+        priorityPanel.add(priority, BoxLayout.X_AXIS);
         priorityPanel.add(priorityPrompt, FlowLayout.LEFT);
         priorityPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         return priorityPanel;
@@ -78,10 +80,12 @@ public class AddTaskPanel extends JPanel {
 
     private JPanel getInsertTimePanel() {
         timeField = new JSpinner();
+        timeField.setValue(30);
+        timeField.setBorder(BorderFactory.createLineBorder(Color.yellow));
         JLabel timePrompt = new JLabel("How long should it take?");
         JPanel timePanel = new JPanel();
         timePanel.setLayout(new BoxLayout(timePanel, BoxLayout.X_AXIS));
-        timePanel.add(timeField,BoxLayout.X_AXIS);
+        timePanel.add(timeField, BoxLayout.X_AXIS);
         timePanel.add(timePrompt, FlowLayout.LEFT);
         timePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         return timePanel;
@@ -91,20 +95,20 @@ public class AddTaskPanel extends JPanel {
     private JPanel getInsertNamePanel() {
         taskNameField = new JTextField(20);
         taskNameField.setSize(30, 10);
-        taskNameField.setBorder(BorderFactory.createLineBorder(Color.green));
+        taskNameField.setBorder(BorderFactory.createLineBorder(Color.yellow));
         JLabel inputNamePrompt = new JLabel("Task name:");
         inputNamePrompt.setVisible(true);// !!!
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
-        namePanel.add(taskNameField,BoxLayout.X_AXIS);
+        namePanel.add(taskNameField, BoxLayout.X_AXIS);
         namePanel.add(inputNamePrompt, FlowLayout.LEFT);
         namePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         return namePanel;
     }
 
-    String[] yesNo = {"yes", "no"};
+    String[] yesNo = {"no", "yes"};
 
-    public void addNewTask() {
+    private void addNewTask() {
         String name = taskNameField.getText();
         int time = (int) timeField.getValue();
         boolean isPriority = false;
@@ -114,17 +118,28 @@ public class AddTaskPanel extends JPanel {
 
         studyBuddyApp.getToDoList().addTask(name, time, isPriority);
 
-//        String scribbleSoundFile = "scribbleSound.mp3";
-//        Media scribbleSound;
-//        scribbleSound = new Media("./data/scribbleSound.mp3");
-//        MediaPlayer mediaPlayer = new MediaPlayer(scribbleSound);
-//        mediaPlayer.play();
+        studyBuddyApp.playSound("scribbleSound.wav");
 
-        studyBuddyApp.updateListView();
+        java.util.Timer timer = new java.util.Timer();
+        timer.schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        studyBuddyApp.updateListView();
+                        reset();
+                        timer.cancel();
+                    }
+                },
+                2300
+        );
+        //setVisible(false);
 
-        setVisible(false);
+    }
 
-
+    public void reset() {
+        taskNameField.setText("");
+        timeField.setValue(30);
+        priority.setSelectedIndex(0);
     }
 
 

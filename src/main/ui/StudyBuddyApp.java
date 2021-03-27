@@ -5,19 +5,16 @@ import model.ToDoList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Scanner;
-
-//import static ui.Prompts.*
 
 
 // Virtual study buddy application
@@ -25,25 +22,26 @@ import java.util.Scanner;
 // Includes code taken and modified from C3-LectureLabStarter, Oracle ListDemo
 public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
-    private static final String TODO_TIP = "Tip: split larger tasks into multiple smaller ones to make them more manageable";
+    private static final String TODO_TIP = "Tip: split a large task into smaller ones to make them more manageable";
     private ToDoList todaysTodos;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private JLabel promptLabel;
     private JLabel tipLabel;
-    private JTextField textField;
+    //private JTextField textField;
     private JList jlist;
-    //= new JList(todaysTodos.getAllTaskNames().toArray(new String[0]));
 
     //EFFECTS: runs the study buddy application
     public StudyBuddyApp() {
         //super("Study Buddy UI");
-        todaysTodos = new ToDoList();
 
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+        //should be able to just call runBuddy, which calls initialize and setUpDisplay
+
+        initialize();
+
 
         tipLabel = new JLabel(TODO_TIP);
+        tipLabel.setFont(new Font("Serif", Font.BOLD, 15));
         tipLabel.setAlignmentX(10);
         tipLabel.setAlignmentY(10);
         add(tipLabel, BorderLayout.NORTH);
@@ -68,33 +66,30 @@ public class StudyBuddyApp extends JFrame {
         add(scrollPane, BorderLayout.EAST);
 
 
-        JButton loadButton = new JButton("load");
-        loadButton.setActionCommand("load");
-        loadButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                loadToDoList();
-            }
-        });
+        JPanel bottomPane = setUpButtonPane();
+        //bottomPane.add(textField);
+        //bottomPane.add(addButton);
 
-        JButton saveButton = new JButton("save");
-        saveButton.setActionCommand("save");
-        saveButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                saveToDoList();
-            }
-        });
+        add(bottomPane, BorderLayout.PAGE_END);
 
-        JButton removeButton = new JButton("remove");
-        removeButton.setActionCommand("remove");
-        removeButton.setBackground(Color.red);
-        removeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                removeTask();
-            }
-        });
+        pack();
+        setVisible(true);
 
+        //runBuddy(); // !!!
+    }
 
-//        textField = new JTextField(20);
+    private JPanel setUpButtonPane() {
+
+        JButton loadButton = setUpButton("load", Color.white);
+        loadButton.addActionListener(e -> loadToDoList());
+
+        JButton saveButton = setUpButton("save", Color.white);
+        saveButton.addActionListener(e -> saveToDoList());
+
+        JButton removeButton = setUpButton("remove", Color.red);
+        removeButton.addActionListener(e -> removeTask());
+
+        //        textField = new JTextField(20);
 //        textField.setSize(30,10);
 //        textField.setBorder(BorderFactory.createLineBorder(Color.green));
         //add(textField, BorderLayout.CENTER);
@@ -111,33 +106,12 @@ public class StudyBuddyApp extends JFrame {
 //        });
 
         JPanel bottomPane = new JPanel();
-        bottomPane.setLayout(new BoxLayout(bottomPane, BoxLayout.X_AXIS));
+        bottomPane.setLayout(new FlowLayout());
         bottomPane.add(loadButton);
         bottomPane.add(saveButton);
         bottomPane.add(removeButton);
-        //bottomPane.add(textField);
-        //bottomPane.add(addButton);
-
-        add(bottomPane, BorderLayout.PAGE_END);
-
-        //add(loadButton, BorderLayout.SOUTH);
-
-        //add other components
-
-        pack();
-        setVisible(true);
-
-
-        //runBuddy(); // !!!
-
+        return bottomPane;
     }
-
-//    private void createTaskList() {
-//        todaysTodos = new ToDoList(); // !!!
-//        taskListArea = new TaskListGUI(this);
-//        add(taskListArea, BorderLayout.EAST);
-//
-//    }
 
 
     // modified from Teller app
@@ -157,7 +131,9 @@ public class StudyBuddyApp extends JFrame {
     // EFFECTS: instantiates new to do list and scanner
     private void initialize() {
         todaysTodos = new ToDoList();
-        //input = new Scanner(System.in);// !!!
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // EFFECTS: displays prompt for setting up to do list
@@ -184,7 +160,7 @@ public class StudyBuddyApp extends JFrame {
 
     // EFFECTS: displays menu of possible actions/inputs to user
     private void displayInputOptions() {
-        //menu bar
+        //menu bar / help screen
         System.out.println();
         System.out.println("Select from:");
         System.out.println("1 -> load previously saved todos from file");
@@ -219,9 +195,6 @@ public class StudyBuddyApp extends JFrame {
         return button;
     }
 
-    public void setUpButtonPane() {
-
-    }
 
     public void updateListView() {
         jlist.setListData(viewAllTasksNumbered().toArray());
@@ -297,14 +270,6 @@ public class StudyBuddyApp extends JFrame {
         System.out.println("\"" + view + "\" was " + action + "!");
     }
 
-    // REQUIRES: "1" or "2"
-    // EFFECTS: returns true if input was 1, false if 2
-    private boolean yesNoToBoolean(String yesNo) {
-        String response = yesNo.toLowerCase();
-
-        return response.equals("1");
-
-    }
 
     // EFFECTS: saves the to do list to file
     private void saveToDoList() {
@@ -333,6 +298,20 @@ public class StudyBuddyApp extends JFrame {
     public ToDoList getToDoList() {
         return this.todaysTodos;
     }
+
+    public void playSound(String fileName) {
+        try {
+            File f = new File("./data/" + fileName);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }

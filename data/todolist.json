@@ -2,16 +2,16 @@
     {
         "name": "vacuum",
         "minutesNeeded": 30,
+        "isPriority": false
+    },
+    {
+        "name": "math hw",
+        "minutesNeeded": 60,
         "isPriority": true
     },
     {
-        "name": "run",
-        "minutesNeeded": 40,
-        "isPriority": false
-    },
-    {
-        "name": "yello",
-        "minutesNeeded": 0,
-        "isPriority": false
+        "name": "go for a run",
+        "minutesNeeded": 30,
+        "isPriority": true
     }
 ]}
