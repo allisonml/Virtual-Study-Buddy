@@ -27,10 +27,6 @@ public class ToDoList implements Writable {
         this.tasks.add(newTask);
     }
 
-    public void addTask(Task task) {
-        this.tasks.add(task);
-    }
-
     // REQUIRES: 0 <= taskNum < task list size, tasks is non-empty
     // MODIFIES: this
     // EFFECTS: removes task in given position from to do list

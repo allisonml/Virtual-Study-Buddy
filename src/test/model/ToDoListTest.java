@@ -67,7 +67,7 @@ class ToDoListTest {
         oneItem.addTask("task 1", 5, true);
         assertEquals(1, oneItem.getLength());
 
-        oneItem.removeTask(1);
+        oneItem.removeTask(0);
 
         assertEquals(0, oneItem.getLength());
 
@@ -82,7 +82,7 @@ class ToDoListTest {
         fewItems.addTask("task 4", 30, false);
         assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(1);
+        fewItems.removeTask(0);
 
         assertEquals(3, fewItems.getLength());
         List<String> tasks = fewItems.getAllTaskNames();
@@ -101,7 +101,7 @@ class ToDoListTest {
         fewItems.addTask("task 4", 30, false);
         assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(3);
+        fewItems.removeTask(2);
 
         assertEquals(3, fewItems.getLength());
         List<String> tasks = fewItems.getAllTaskNames();
@@ -120,7 +120,7 @@ class ToDoListTest {
         fewItems.addTask("task 4", 30, false);
         assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(4);
+        fewItems.removeTask(3);
 
         assertEquals(3, fewItems.getLength());
         List<String> tasks = fewItems.getAllTaskNames();
@@ -139,7 +139,7 @@ class ToDoListTest {
         fewItems.addTask("task 4", 30, false);
         assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(2);
+        fewItems.removeTask(1);
 
         assertEquals(3, fewItems.getLength());
         List<String> tasks = fewItems.getAllTaskNames();
@@ -147,7 +147,7 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 3"));
         assertTrue(tasks.contains("task 4"));
 
-        fewItems.removeTask(2);
+        fewItems.removeTask(1);
 
         assertEquals(2, fewItems.getLength());
         tasks = fewItems.getAllTaskNames();
