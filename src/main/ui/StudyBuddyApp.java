@@ -18,18 +18,19 @@ import java.util.List;
 
 
 // Virtual study buddy application
-// NOTE: StudyBuddyApp(), runBuddy(), initialize(), and displayInputOptions() are taken and modified from Teller app
-// Includes code taken and modified from C3-LectureLabStarter, Oracle ListDemo
+// Includes code taken and modified from Teller App, C3-LectureLabStarter, Oracle ListDemo
 public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
     private static final String TODO_TIP = "Tip: split a large task into smaller ones to make them more manageable";
     private ToDoList todaysTodos;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private JLabel promptLabel;
     private JLabel tipLabel;
-    //private JTextField textField;
+    private AddTaskPanel addTaskPanel;
     private JList jlist;
+    private JPanel bottomButtonPane;
+    //private JLabel promptLabel;
+    //private JTextField textField;
 
     //EFFECTS: runs the study buddy application
     public StudyBuddyApp() {
@@ -46,15 +47,12 @@ public class StudyBuddyApp extends JFrame {
         tipLabel.setAlignmentY(10);
         add(tipLabel, BorderLayout.NORTH);
 
-        AddTaskPanel addTaskPanel = new AddTaskPanel(this);
-//        addTaskPanel.setAlignmentX(10);
-//        addTaskPanel.setAlignmentY(10);
-        //add(addTaskPanel, BorderLayout.WEST);
+        addTaskPanel = new AddTaskPanel(this);
+
         addTaskPanel.setVisible(true);
+
 //        promptLabel = new JLabel("prompt label is visible");
 //        add(promptLabel, BorderLayout.WEST);
-
-
 
         jlist = new JList(viewAllTasksNumbered().toArray());
         jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -89,28 +87,12 @@ public class StudyBuddyApp extends JFrame {
         JButton removeButton = setUpButton("remove", Color.red);
         removeButton.addActionListener(e -> removeTask());
 
-        //        textField = new JTextField(20);
-//        textField.setSize(30,10);
-//        textField.setBorder(BorderFactory.createLineBorder(Color.green));
-        //add(textField, BorderLayout.CENTER);
-
-//        JButton addButton = new JButton("add");
-//        addButton.setActionCommand("add");
-//        addButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                Task task = new Task(textField.getText());
-//                todaysTodos.addTask(task); // !!!
-//                updateListView();
-//                //createTask();
-//            }
-//        });
-
-        JPanel bottomPane = new JPanel();
-        bottomPane.setLayout(new FlowLayout());
-        bottomPane.add(loadButton);
-        bottomPane.add(saveButton);
-        bottomPane.add(removeButton);
-        return bottomPane;
+        bottomButtonPane = new JPanel();
+        bottomButtonPane.setLayout(new FlowLayout());
+        bottomButtonPane.add(loadButton);
+        bottomButtonPane.add(saveButton);
+        bottomButtonPane.add(removeButton);
+        return bottomButtonPane;
     }
 
 
@@ -119,7 +101,7 @@ public class StudyBuddyApp extends JFrame {
     // EFFECTS: processes user input
 //    private void runBuddy() {
 //        initialize();
-//        introDisplay();
+//        setDisplay();
 //
 // put quit button
 
@@ -178,7 +160,7 @@ public class StudyBuddyApp extends JFrame {
     private void createTask() {
         //maybe do in a pop up, prompts and 3 text fields in one pop up panel
 
-        promptLabel.setVisible(false);
+        //promptLabel.setVisible(false);
         AddTaskPanel addTaskPanel = new AddTaskPanel(this);
         this.add(addTaskPanel, BorderLayout.CENTER);
         addTaskPanel.setVisible(true);
