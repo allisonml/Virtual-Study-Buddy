@@ -1,0 +1,19 @@
+Index: src/main/ui/AddTaskPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ui;\r\n\r\nimport model.Task;\r\nimport model.ToDoList;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\n\r\npublic class AddTaskPanel extends JPanel {\r\n    private JTextField taskNameField;\r\n    private JSpinner timeField;\r\n    private JComboBox priority;\r\n    private StudyBuddyApp studyBuddyApp;\r\n\r\n    public AddTaskPanel(StudyBuddyApp studyBuddyApp) {\r\n        this.studyBuddyApp = studyBuddyApp;\r\n\r\n\r\n        taskNameField = new JTextField(20);\r\n        taskNameField.setSize(30, 10);\r\n        taskNameField.setBorder(BorderFactory.createLineBorder(Color.green));\r\n        JLabel inputNamePrompt = new JLabel(\"Task name:\");\r\n        inputNamePrompt.setVisible(true);// !!!\r\n        JPanel namePanel = new JPanel();\r\n        namePanel.add(taskNameField, BorderLayout.EAST);\r\n        namePanel.add(inputNamePrompt, BorderLayout.WEST);\r\n\r\n        timeField = new JSpinner();\r\n        JLabel timePrompt = new JLabel(\"How long should it take?\");\r\n        JPanel timePanel = new JPanel();\r\n        timePanel.add(timeField, BorderLayout.EAST);\r\n        timePanel.add(timePrompt, BorderLayout.WEST);\r\n\r\n        priority = new JComboBox(yesNo);\r\n        priority.setSelectedIndex(0);\r\n        JLabel priorityPrompt = new JLabel(\"Is it one of your main priorities for today?\");\r\n        JPanel priorityPanel = new JPanel();\r\n        priorityPanel.add(priority, BorderLayout.EAST);\r\n        priorityPanel.add(priorityPrompt, BorderLayout.WEST);\r\n\r\n        JPanel taskInfoPane = new JPanel();\r\n        taskInfoPane.add(namePanel, BorderLayout.NORTH);\r\n        taskInfoPane.add(timePanel, BorderLayout.CENTER);\r\n        taskInfoPane.add(priorityPanel, BorderLayout.SOUTH);\r\n\r\n//        JButton cancelButton = new JButton(\"cancel\");\r\n//        cancelButton.setActionCommand(\"cancel\");\r\n//        cancelButton.addActionListener(new ActionListener() {\r\n//            public void actionPerformed(ActionEvent e) {\r\n//                // !!!\r\n//            }\r\n//        });\r\n\r\n        JButton addTaskButton = new JButton(\"Add task\");\r\n        addTaskButton.setActionCommand(\"Add task\");\r\n        addTaskButton.addActionListener(new ActionListener() {\r\n            public void actionPerformed(ActionEvent e) {\r\n                addNewTask();\r\n            }\r\n        });\r\n\r\n        JPanel addTaskPanel = new JPanel();\r\n        addTaskPanel.add(taskInfoPane, BorderLayout.NORTH);\r\n        addTaskPanel.add(addTaskButton, BorderLayout.SOUTH);\r\n\r\n        addTaskPanel.setVisible(true);\r\n\r\n    }\r\n\r\n    String[] yesNo = {\"yes\", \"no\"};\r\n\r\n    public void addNewTask() {\r\n        String name = taskNameField.getText();\r\n        int time = (int) timeField.getValue();\r\n        boolean isPriority = false;\r\n        if (priority.getSelectedItem() == \"yes\") {\r\n            isPriority = true;\r\n        }\r\n\r\n        studyBuddyApp.getToDoList().addTask(name, time, isPriority);\r\n        studyBuddyApp.updateListView();\r\n\r\n        setVisible(false);\r\n\r\n\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/ui/AddTaskPanel.java	(revision 28fcc6432cb7f68a8468cd5d1cbf690f4a05c7f8)
++++ src/main/ui/AddTaskPanel.java	(date 1616695116671)
+@@ -62,6 +62,9 @@
+         });
+ 
+         JPanel addTaskPanel = new JPanel();
++        addTaskPanel.setLayout(new BorderLayout());
++        addTaskPanel.setAlignmentX(20);
++        addTaskPanel.setAlignmentY(20);
+         addTaskPanel.add(taskInfoPane, BorderLayout.NORTH);
+         addTaskPanel.add(addTaskButton, BorderLayout.SOUTH);
+ 
