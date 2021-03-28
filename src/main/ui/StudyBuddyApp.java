@@ -9,6 +9,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,7 +53,7 @@ public class StudyBuddyApp extends JFrame {
         tipLabel = new JLabel(TODO_TIP);
         tipLabel.setFont(FONT_BOLDED);
         addTaskPanel = new AddTaskPanel(this);
-        JScrollPane scrollPane = getScrollPane();
+        JPanel listPanel = getScrollPane();
         JPanel bottomButtonPane = setUpButtonPane();
 //        promptLabel = new JLabel("prompt label is visible");
 
@@ -60,7 +61,7 @@ public class StudyBuddyApp extends JFrame {
         add(tipLabel, BorderLayout.NORTH);
         add(addTaskPanel, BorderLayout.WEST);
 //        add(promptLabel, BorderLayout.WEST);
-        add(scrollPane);
+        add(listPanel);
         add(bottomButtonPane, BorderLayout.PAGE_END);
 
         pack();
@@ -69,7 +70,7 @@ public class StudyBuddyApp extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: returns scroll pane with jlist of tasks
-    private JScrollPane getScrollPane() {
+    private JPanel getScrollPane() {
         jlist = new JList(viewAllTasksNumbered().toArray());
         jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jlist.setSelectedIndex(0);
@@ -78,14 +79,16 @@ public class StudyBuddyApp extends JFrame {
         jlist.setFont(FONT_UNBOLDED);
 
         JScrollPane scrollPane = new JScrollPane(jlist);
-//        JLabel toDoLabel = new JLabel("To Do:");
-//
-//        JPanel listPanel = new JPanel();
-//        listPanel.setLayout(new BorderLayout());
-//        listPanel.add(toDoLabel, BorderLayout.NORTH);
-//        listPanel.add(scrollPane, BorderLayout.CENTER);
+        JLabel toDoLabel = new JLabel("To Do:");
+        toDoLabel.setFont(FONT_UNBOLDED);
+        toDoLabel.setBorder(BorderFactory.createLineBorder(Color.gray));
 
-        return scrollPane;
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BorderLayout());
+        listPanel.add(toDoLabel, BorderLayout.NORTH);
+        listPanel.add(scrollPane, BorderLayout.CENTER);
+
+        return listPanel;
     }
 
     // MODIFIES: this
