@@ -1,10 +1,5 @@
 {"tasks": [
     {
-        "name": "vacuum",
-        "minutesNeeded": 30,
-        "isPriority": false
-    },
-    {
         "name": "math hw",
         "minutesNeeded": 60,
         "isPriority": true

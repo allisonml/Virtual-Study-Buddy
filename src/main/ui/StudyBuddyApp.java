@@ -168,8 +168,7 @@ public class StudyBuddyApp extends JFrame {
 
     // EFFECTS: returns list of all tasks in to do list numbered
     private List<String> viewAllTasksNumbered() {
-//        System.out.println();
-//        System.out.println("TO DO:");
+
         List<String> taskViews = new ArrayList<>();
         int i = 1;
 

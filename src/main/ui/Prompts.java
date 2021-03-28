@@ -1,5 +1,6 @@
 package ui;
 
+// Prompt strings for prompt screen
 public enum Prompts {
 //    PROMPT_NAME {
 //        @Override
