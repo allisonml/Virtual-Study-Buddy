@@ -125,8 +125,10 @@ public class StudyBuddyApp extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: instantiates new to do list and scanner
+    // EFFECTS: initializes app list and json writer and reader
     private void initialize() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         todaysTodos = new ToDoList();
 
         jsonWriter = new JsonWriter(JSON_STORE);
