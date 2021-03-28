@@ -12,7 +12,7 @@ public class AddTaskPanel extends JPanel {
     private static final Color COLOUR_SCHEME = Color.yellow;
     private JTextField taskNameField;
     private JSpinner timeField;
-    private JComboBox priority;
+    private JCheckBox priority;
     private final StudyBuddyApp studyBuddyApp;
 
     // EFFECTS: constructs an Add Task panel with the given StudyBuddyApp
@@ -92,7 +92,7 @@ public class AddTaskPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: constructs a panel with combo box and prompt to input priority
     private JPanel getInputPriorityPanel() {
-        priority = new JComboBox(yesNo);
+        priority = new JCheckBox();
         JPanel priorityPanel = createFieldInputPanel(priority, "Is it one of your main priorities for today?");
 
         return priorityPanel;
@@ -125,7 +125,7 @@ public class AddTaskPanel extends JPanel {
         String name = taskNameField.getText();
         int time = (int) timeField.getValue();
         boolean isPriority = false;
-        if (priority.getSelectedItem() == "yes") {
+        if (priority.isSelected()) {
             isPriority = true;
         }
 
@@ -154,7 +154,7 @@ public class AddTaskPanel extends JPanel {
     public void reset() {
         taskNameField.setText("");
         timeField.setValue(30);
-        priority.setSelectedIndex(0);
+        priority.setSelected(false);
     }
 
 
