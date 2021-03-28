@@ -13,6 +13,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,11 @@ public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
     public static final Font FONT_BOLDED = new Font("SansSerif", Font.BOLD, 15);
     private static final String TODO_TIP = " Tip: split a large task into smaller ones to make them more manageable";
+
     private ToDoList todaysTodos;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+
     private JLabel tipLabel;
     private AddTaskPanel addTaskPanel;
     private JList jlist;
@@ -74,6 +77,7 @@ public class StudyBuddyApp extends JFrame {
         return scrollPane;
     }
 
+    // MODIFIES: this
     // EFFECTS: returns a jpanel for load, save, remove buttons
     private JPanel setUpButtonPane() {
 
@@ -146,7 +150,7 @@ public class StudyBuddyApp extends JFrame {
 
     }
 
-    // EFFECTS: displays all tasks in to do list numbered
+    // EFFECTS: returns list of all tasks in to do list numbered
     private List<String> viewAllTasksNumbered() {
 //        System.out.println();
 //        System.out.println("TO DO:");
@@ -196,10 +200,11 @@ public class StudyBuddyApp extends JFrame {
     // EFFECTS: plays the .wav file of the given name
     public void playSound(String fileName) {
         try {
-            File f = new File("./data/" + fileName);
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            File soundFile = new File("./data/" + fileName);
+            URL soundFileURL = soundFile.toURI().toURL();
+            AudioInputStream soundEffect = AudioSystem.getAudioInputStream(soundFileURL);
             Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
+            clip.open(soundEffect);
             clip.start();
         } catch (Exception e) {
             e.printStackTrace();

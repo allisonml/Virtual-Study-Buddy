@@ -98,6 +98,7 @@ public class AddTaskPanel extends JPanel {
         return priorityPanel;
     }
 
+    // MODIFIES: component
     // EFFECTS: formats a panel with given prompt label and component
     private JPanel createFieldInputPanel(JComponent component, String prompt) {
         component.setBorder(BorderFactory.createLineBorder(COLOUR_SCHEME));
