@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static ui.StudyBuddyApp.FONT;
+import static ui.StudyBuddyApp.FONT_BOLDED;
 
 // Represents a panel for adding tasks to to do list
 public class AddTaskPanel extends JPanel {
@@ -46,7 +46,7 @@ public class AddTaskPanel extends JPanel {
         JButton addTaskButton = new JButton("Add task");
         addTaskButton.setActionCommand("Add task");
         addTaskButton.setBackground(COLOUR_SCHEME);
-        addTaskButton.setFont(FONT);
+        addTaskButton.setFont(FONT_BOLDED);
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addNewTask();
@@ -102,7 +102,7 @@ public class AddTaskPanel extends JPanel {
     private JPanel createFieldInputPanel(JComponent component, String prompt) {
         component.setBorder(BorderFactory.createLineBorder(COLOUR_SCHEME));
         JLabel promptLabel = new JLabel(" " + prompt + " ");
-        promptLabel.setFont(FONT);
+        promptLabel.setFont(FONT_BOLDED);
 
 
         JPanel fieldInputPanel = new JPanel();

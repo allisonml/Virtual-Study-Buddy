@@ -21,7 +21,7 @@ import java.util.List;
 // Includes code taken and modified from Teller App, C3-LectureLabStarter, Oracle ListDemo
 public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
-    public static final Font FONT = new Font("SansSerif", Font.BOLD, 15);
+    public static final Font FONT_BOLDED = new Font("SansSerif", Font.BOLD, 15);
     private static final String TODO_TIP = " Tip: split a large task into smaller ones to make them more manageable";
     private ToDoList todaysTodos;
     private JsonWriter jsonWriter;
@@ -43,7 +43,7 @@ public class StudyBuddyApp extends JFrame {
     // EFFECTS: adds components and makes this visible
     private void setDisplay() {
         tipLabel = new JLabel(TODO_TIP);
-        tipLabel.setFont(FONT);
+        tipLabel.setFont(FONT_BOLDED);
         addTaskPanel = new AddTaskPanel(this);
         JScrollPane scrollPane = getScrollPane();
         JPanel bottomButtonPane = setUpButtonPane();
@@ -68,7 +68,7 @@ public class StudyBuddyApp extends JFrame {
         jlist.setSelectedIndex(0);
         jlist.setVisibleRowCount(10);
         jlist.setFixedCellWidth(this.getWidth() / 2);
-        jlist.setFont(FONT);
+        jlist.setFont(FONT_BOLDED);
 
         JScrollPane scrollPane = new JScrollPane(jlist);
         return scrollPane;
@@ -121,7 +121,7 @@ public class StudyBuddyApp extends JFrame {
         JButton button = new JButton(name);
         button.setActionCommand(name);
         button.setBackground(colour);
-        button.setFont(FONT);
+        button.setFont(FONT_BOLDED);
         return button;
     }
 
