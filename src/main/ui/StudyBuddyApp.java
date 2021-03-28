@@ -21,6 +21,7 @@ import java.util.List;
 // Includes code taken and modified from Teller App, C3-LectureLabStarter, Oracle ListDemo
 public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
+    private static final Font FONT = new Font("Serif", Font.BOLD, 15);
     private static final String TODO_TIP = "Tip: split a large task into smaller ones to make them more manageable";
     private ToDoList todaysTodos;
     private JsonWriter jsonWriter;
@@ -34,15 +35,16 @@ public class StudyBuddyApp extends JFrame {
 
     //EFFECTS: runs the study buddy application
     public StudyBuddyApp() {
-        //super("Study Buddy UI");
-
         //should be able to just call runBuddy, which calls initialize and setUpDisplay
+        runBuddy();
 
-        initialize();
+        setDisplay();
 
+    }
 
+    private void setDisplay() {
         tipLabel = new JLabel(TODO_TIP);
-        tipLabel.setFont(new Font("Serif", Font.BOLD, 15));
+        tipLabel.setFont(FONT);
         tipLabel.setAlignmentX(10);
         tipLabel.setAlignmentY(10);
         add(tipLabel, BorderLayout.NORTH);
@@ -64,16 +66,14 @@ public class StudyBuddyApp extends JFrame {
         add(scrollPane, BorderLayout.EAST);
 
 
-        JPanel bottomPane = setUpButtonPane();
-        //bottomPane.add(textField);
-        //bottomPane.add(addButton);
+        JPanel bottomButtonPane = setUpButtonPane();
+        //bottomButtonPane.add(textField);
+        //bottomButtonPane.add(addButton);
 
-        add(bottomPane, BorderLayout.PAGE_END);
+        add(bottomButtonPane, BorderLayout.PAGE_END);
 
         pack();
         setVisible(true);
-
-        //runBuddy(); // !!!
     }
 
     private JPanel setUpButtonPane() {
@@ -99,15 +99,10 @@ public class StudyBuddyApp extends JFrame {
     // modified from Teller app
     // MODIFIES: this
     // EFFECTS: processes user input
-//    private void runBuddy() {
-//        initialize();
-//        setDisplay();
-//
-// put quit button
-
-//        System.out.println();
-//        System.out.println("Great work! Hope to see you again soon:)");
-//    }
+    private void runBuddy() {
+        initialize();
+        setDisplay();
+    }
 
     // MODIFIES: this
     // EFFECTS: instantiates new to do list and scanner
@@ -118,57 +113,6 @@ public class StudyBuddyApp extends JFrame {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
-    // EFFECTS: displays prompt for setting up to do list
-    private void introDisplay() {
-        //change or initialize prompt label
-        System.out.println("Hey, nice to see you!");
-        System.out.println("(respond or press enter to begin session)");
-        //input.nextLine();
-
-        System.out.println("What would you like to accomplish today?");
-        System.out.println("(Tip: split larger tasks into multiple smaller ones to make them more manageable)");
-    }
-
-    // EFFECTS: saves current to do list to file if user says yes to prompt
-    public String promptToSaveString() {
-        // pop up
-        //can make yes/no button
-        return "Before you leave, would you like to save your current to do list for later?";
-
-//        if (yesNoToBoolean(toSave)) {
-//            saveToDoList();
-//        }
-    }
-
-    // EFFECTS: displays menu of possible actions/inputs to user
-    private void displayInputOptions() {
-        //menu bar / help screen
-        System.out.println();
-        System.out.println("Select from:");
-        System.out.println("1 -> load previously saved todos from file");
-        System.out.println("2 -> save current todos to file");
-        System.out.println("3 -> add a task");
-        System.out.println("4 -> remove a task");
-        System.out.println("5 -> view all todos");
-        System.out.println("6 -> filter todos to view only priority items");
-        System.out.println("7 -> bye! (leave session)");
-    }
-
-
-    // MODIFIES: this, todaysTodos
-    // EFFECTS: prompts user to input task information and creates the task
-    private void createTask() {
-        //maybe do in a pop up, prompts and 3 text fields in one pop up panel
-
-        //promptLabel.setVisible(false);
-        AddTaskPanel addTaskPanel = new AddTaskPanel(this);
-        this.add(addTaskPanel, BorderLayout.CENTER);
-        addTaskPanel.setVisible(true);
-
-        updateListView();
-
-
-    }
 
     public JButton setUpButton(String name, Color colour) {
         JButton button = new JButton(name);
@@ -215,43 +159,6 @@ public class StudyBuddyApp extends JFrame {
 
     }
 
-    // EFFECTS: displays all tasks with bullets in the given list with the given title
-    private void viewListBulleted(List<Task> tasks, String name) {
-        System.out.println();
-
-
-        System.out.println(name);
-
-        for (Task t : tasks) {
-            System.out.println("> " + t.getTaskView());
-        }
-
-    }
-
-    // EFFECTS: displays task list filtered to priority
-    private void viewPrioritiesOnly() {
-        ToDoList priorities = todaysTodos.getPrioritiesOnly();
-        List<Task> priorityTasks = priorities.getToDos();
-
-        viewListBulleted(priorityTasks, "TOP TODOS:");
-
-    }
-
-    // EFFECTS: displays task list
-    private void viewAllTasks() {
-        viewListBulleted(todaysTodos.getToDos(), "TO DO:");
-
-    }
-
-    // EFFECTS: print that the task of the given index is added or removed
-    private void printTaskAddedOrRemoved(int index, String action) {
-        Task task = todaysTodos.getToDos().get(index);
-        String view = task.getTaskView();
-
-        System.out.println();
-        System.out.println("\"" + view + "\" was " + action + "!");
-    }
-
 
     // EFFECTS: saves the to do list to file
     private void saveToDoList() {
@@ -259,9 +166,9 @@ public class StudyBuddyApp extends JFrame {
             jsonWriter.open();
             jsonWriter.write(todaysTodos);
             jsonWriter.close();
-            System.out.println("Saved current todos to " + JSON_STORE);
+            //System.out.println("Saved current todos to " + JSON_STORE);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            tipLabel.setText("Unable to write to file: " + JSON_STORE);
         }
     }
 
@@ -270,17 +177,19 @@ public class StudyBuddyApp extends JFrame {
     private void loadToDoList() {
         try {
             todaysTodos = jsonReader.read();
-            System.out.println("Loaded current todos from " + JSON_STORE);
+            //System.out.println("Loaded current todos from " + JSON_STORE);
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            tipLabel.setText("Unable to read from file: " + JSON_STORE);
         }
         updateListView();
     }
 
+    // EFFECTS: returns to do list
     public ToDoList getToDoList() {
         return this.todaysTodos;
     }
 
+    // EFFECTS: plays the .wav file of the given name
     public void playSound(String fileName) {
         try {
             File f = new File("./data/" + fileName);
