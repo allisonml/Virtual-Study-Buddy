@@ -6,10 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static ui.StudyBuddyApp.FONT_BOLDED;
+import static ui.StudyBuddyApp.FONT_UNBOLDED;
 
 // Represents a panel for adding tasks to to do list
 public class AddTaskPanel extends JPanel {
-    private static final Color COLOUR_SCHEME = Color.yellow;
+    private static final Color COLOUR_SCHEME = new Color(242, 245, 95);
     private JTextField taskNameField;
     private JSpinner timeField;
     private JCheckBox priority;
@@ -93,6 +94,7 @@ public class AddTaskPanel extends JPanel {
     // EFFECTS: constructs a panel with combo box and prompt to input priority
     private JPanel getInputPriorityPanel() {
         priority = new JCheckBox();
+        priority.setBackground(COLOUR_SCHEME);
         JPanel priorityPanel = createFieldInputPanel(priority, "Is it one of your main priorities for today?");
 
         return priorityPanel;
@@ -102,9 +104,9 @@ public class AddTaskPanel extends JPanel {
     // EFFECTS: formats a panel with given prompt label and component
     private JPanel createFieldInputPanel(JComponent component, String prompt) {
         component.setBorder(BorderFactory.createLineBorder(COLOUR_SCHEME));
+        component.setFont(FONT_UNBOLDED);
         JLabel promptLabel = new JLabel(" " + prompt + " ");
-        promptLabel.setFont(FONT_BOLDED);
-
+        promptLabel.setFont(FONT_UNBOLDED);
 
         JPanel fieldInputPanel = new JPanel();
         fieldInputPanel.setLayout(new BoxLayout(fieldInputPanel, BoxLayout.X_AXIS));

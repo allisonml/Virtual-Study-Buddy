@@ -22,8 +22,10 @@ import java.util.List;
 // Includes code taken and modified from Teller App, C3-LectureLabStarter, Oracle ListDemo
 public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
-    public static final Font FONT_BOLDED = new Font("SansSerif", Font.BOLD, 15);
-    private static final String TODO_TIP = " Tip: split a large task into smaller ones to make them more manageable";
+    public static final String FONT_STYLE = "SansSerif";
+    public static final Font FONT_BOLDED = new Font(FONT_STYLE, Font.BOLD, 20);
+    public static final Font FONT_UNBOLDED = new Font(FONT_STYLE, Font.PLAIN, 20);
+    private static final String TODO_TIP = " Tip: split a large task into smaller ones to make them more manageable ";
 
     private ToDoList todaysTodos;
     private JsonWriter jsonWriter;
@@ -45,6 +47,8 @@ public class StudyBuddyApp extends JFrame {
     // MODIFIES: this
     // EFFECTS: adds components and makes this visible
     private void setDisplay() {
+        this.setTitle("My Study Buddy");
+
         tipLabel = new JLabel(TODO_TIP);
         tipLabel.setFont(FONT_BOLDED);
         addTaskPanel = new AddTaskPanel(this);
@@ -71,9 +75,16 @@ public class StudyBuddyApp extends JFrame {
         jlist.setSelectedIndex(0);
         jlist.setVisibleRowCount(10);
         jlist.setFixedCellWidth(this.getWidth() / 2);
-        jlist.setFont(FONT_BOLDED);
+        jlist.setFont(FONT_UNBOLDED);
 
         JScrollPane scrollPane = new JScrollPane(jlist);
+//        JLabel toDoLabel = new JLabel("To Do:");
+//
+//        JPanel listPanel = new JPanel();
+//        listPanel.setLayout(new BorderLayout());
+//        listPanel.add(toDoLabel, BorderLayout.NORTH);
+//        listPanel.add(scrollPane, BorderLayout.CENTER);
+
         return scrollPane;
     }
 
@@ -87,7 +98,7 @@ public class StudyBuddyApp extends JFrame {
         JButton saveButton = setUpButton("save", Color.white);
         saveButton.addActionListener(e -> saveToDoList());
 
-        JButton removeButton = setUpButton("remove", Color.red);
+        JButton removeButton = setUpButton("remove", new Color(245, 95, 95));
         removeButton.addActionListener(e -> removeTask());
 
         bottomButtonPane = new JPanel();
