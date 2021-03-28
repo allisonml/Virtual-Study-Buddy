@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static ui.StudyBuddyApp.FONT;
+
 // Represents a panel for adding tasks to to do list
 public class AddTaskPanel extends JPanel {
     private static final Color COLOUR_SCHEME = Color.yellow;
@@ -17,7 +19,6 @@ public class AddTaskPanel extends JPanel {
     public AddTaskPanel(StudyBuddyApp studyBuddyApp) {
         this.studyBuddyApp = studyBuddyApp;
         setPanel();
-        studyBuddyApp.add(this);
 
     }
 
@@ -45,6 +46,7 @@ public class AddTaskPanel extends JPanel {
         JButton addTaskButton = new JButton("Add task");
         addTaskButton.setActionCommand("Add task");
         addTaskButton.setBackground(COLOUR_SCHEME);
+        addTaskButton.setFont(FONT);
         addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addNewTask();
@@ -58,6 +60,7 @@ public class AddTaskPanel extends JPanel {
         JPanel namePanel = getInsertNamePanel();
         JPanel timePanel = getInsertTimePanel();
         JPanel priorityPanel = getInputPriorityPanel();
+        reset();
 
         JPanel taskInfoPane = new JPanel();
         taskInfoPane.setLayout(new BoxLayout(taskInfoPane, BoxLayout.Y_AXIS));
@@ -82,7 +85,6 @@ public class AddTaskPanel extends JPanel {
     // EFFECTS: constructs a panel with spinner and prompt to input task minutesNeeded
     private JPanel getInsertTimePanel() {
         timeField = new JSpinner();
-        timeField.setValue(30);
         JPanel timePanel = createFieldInputPanel(timeField, "How long should it take?");
         return timePanel;
     }
@@ -91,7 +93,6 @@ public class AddTaskPanel extends JPanel {
     // EFFECTS: constructs a panel with combo box and prompt to input priority
     private JPanel getInputPriorityPanel() {
         priority = new JComboBox(yesNo);
-        priority.setSelectedIndex(0);
         JPanel priorityPanel = createFieldInputPanel(priority, "Is it one of your main priorities for today?");
 
         return priorityPanel;
@@ -100,12 +101,16 @@ public class AddTaskPanel extends JPanel {
     // EFFECTS: formats a panel with given prompt label and component
     private JPanel createFieldInputPanel(JComponent component, String prompt) {
         component.setBorder(BorderFactory.createLineBorder(COLOUR_SCHEME));
-        JLabel promptLabel = new JLabel(prompt);
+        JLabel promptLabel = new JLabel(" " + prompt + " ");
+        promptLabel.setFont(FONT);
+
+
         JPanel fieldInputPanel = new JPanel();
         fieldInputPanel.setLayout(new BoxLayout(fieldInputPanel, BoxLayout.X_AXIS));
         fieldInputPanel.add(component, BoxLayout.X_AXIS);
         fieldInputPanel.add(promptLabel, FlowLayout.LEFT);
         fieldInputPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        fieldInputPanel.setMaximumSize(new Dimension(1000,100));
         return fieldInputPanel;
     }
 

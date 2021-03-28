@@ -21,8 +21,8 @@ import java.util.List;
 // Includes code taken and modified from Teller App, C3-LectureLabStarter, Oracle ListDemo
 public class StudyBuddyApp extends JFrame {
     private static final String JSON_STORE = "./data/todolist.json";
-    private static final Font FONT = new Font("Serif", Font.BOLD, 15);
-    private static final String TODO_TIP = "Tip: split a large task into smaller ones to make them more manageable";
+    public static final Font FONT = new Font("SansSerif", Font.BOLD, 15);
+    private static final String TODO_TIP = " Tip: split a large task into smaller ones to make them more manageable";
     private ToDoList todaysTodos;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -30,52 +30,51 @@ public class StudyBuddyApp extends JFrame {
     private AddTaskPanel addTaskPanel;
     private JList jlist;
     private JPanel bottomButtonPane;
-    //private JLabel promptLabel;
+    //private JLabel promptLabel; // helpLabel
     //private JTextField textField;
 
-    //EFFECTS: runs the study buddy application
+    // EFFECTS: runs the study buddy application
     public StudyBuddyApp() {
-        //should be able to just call runBuddy, which calls initialize and setUpDisplay
         runBuddy();
-
-        setDisplay();
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds components and makes this visible
     private void setDisplay() {
         tipLabel = new JLabel(TODO_TIP);
         tipLabel.setFont(FONT);
-        tipLabel.setAlignmentX(10);
-        tipLabel.setAlignmentY(10);
-        add(tipLabel, BorderLayout.NORTH);
-
         addTaskPanel = new AddTaskPanel(this);
-
-        addTaskPanel.setVisible(true);
-
-//        promptLabel = new JLabel("prompt label is visible");
-//        add(promptLabel, BorderLayout.WEST);
-
-        jlist = new JList(viewAllTasksNumbered().toArray());
-        jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jlist.setSelectedIndex(0);
-        jlist.setVisibleRowCount(10);
-        jlist.setFixedCellWidth(this.getWidth() / 2);
-
-        JScrollPane scrollPane = new JScrollPane(jlist);
-        add(scrollPane, BorderLayout.EAST);
-
-
+        JScrollPane scrollPane = getScrollPane();
         JPanel bottomButtonPane = setUpButtonPane();
-        //bottomButtonPane.add(textField);
-        //bottomButtonPane.add(addButton);
+//        promptLabel = new JLabel("prompt label is visible");
 
+
+        add(tipLabel, BorderLayout.NORTH);
+        add(addTaskPanel, BorderLayout.WEST);
+//        add(promptLabel, BorderLayout.WEST);
+        add(scrollPane);
         add(bottomButtonPane, BorderLayout.PAGE_END);
 
         pack();
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: returns scroll pane with jlist of tasks
+    private JScrollPane getScrollPane() {
+        jlist = new JList(viewAllTasksNumbered().toArray());
+        jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jlist.setSelectedIndex(0);
+        jlist.setVisibleRowCount(10);
+        jlist.setFixedCellWidth(this.getWidth() / 2);
+        jlist.setFont(FONT);
+
+        JScrollPane scrollPane = new JScrollPane(jlist);
+        return scrollPane;
+    }
+
+    // EFFECTS: returns a jpanel for load, save, remove buttons
     private JPanel setUpButtonPane() {
 
         JButton loadButton = setUpButton("load", Color.white);
@@ -92,6 +91,9 @@ public class StudyBuddyApp extends JFrame {
         bottomButtonPane.add(loadButton);
         bottomButtonPane.add(saveButton);
         bottomButtonPane.add(removeButton);
+        //bottomButtonPane.add(textField);
+        //bottomButtonPane.add(addButton);
+
         return bottomButtonPane;
     }
 
@@ -114,14 +116,17 @@ public class StudyBuddyApp extends JFrame {
     }
 
 
+    // EFFECTS: returns a button with the given name and colour
     public JButton setUpButton(String name, Color colour) {
         JButton button = new JButton(name);
         button.setActionCommand(name);
         button.setBackground(colour);
+        button.setFont(FONT);
         return button;
     }
 
 
+    // EFFECTS: updates list data to the current todaysToDos
     public void updateListView() {
         jlist.setListData(viewAllTasksNumbered().toArray());
     }
@@ -135,7 +140,6 @@ public class StudyBuddyApp extends JFrame {
         // or just like in listDemo
 
         int num = jlist.getSelectedIndex();
-
         todaysTodos.removeTask(num);
 
         updateListView();
@@ -184,7 +188,7 @@ public class StudyBuddyApp extends JFrame {
         updateListView();
     }
 
-    // EFFECTS: returns to do list
+    // EFFECTS: returns todaysToDos
     public ToDoList getToDoList() {
         return this.todaysTodos;
     }
@@ -201,8 +205,6 @@ public class StudyBuddyApp extends JFrame {
             e.printStackTrace();
         }
     }
-
-
 
 
 }
