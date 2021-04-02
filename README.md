@@ -54,5 +54,5 @@ checked exception. You must have one test for the case where the exception is ex
 exception is not expected.
     - Class: ToDoList
     - Methods: addTask(), removeTask()
-        - InvalidTaskNameException caught in addNewTask() in AddTaskPanel class
+        - InvalidTaskNameException, InvalidTaskTimeException caught in addNewTask() in AddTaskPanel class
         - ArrayIndexOutOfBoundsException caught in removeTask() in StudyBuddyApp class
