@@ -17,10 +17,21 @@ class ToDoListTest {
 
     @BeforeEach
     public void setUp() {
-        emptyList = new ToDoList();
-        oneItem = new ToDoList();
-        fewItems = new ToDoList();
+        try {
+            emptyList = new ToDoList();
 
+            oneItem = new ToDoList();
+            oneItem.addTask("task 1", 5, true);
+
+            fewItems = new ToDoList();
+            fewItems.addTask("task 1", 5, true);
+            fewItems.addTask("task 2", 20, false);
+            fewItems.addTask("task 3", 120, true);
+        } catch (InvalidTaskNameException e) {
+            fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
+        }
     }
 
     // addTask Tests
@@ -32,7 +43,6 @@ class ToDoListTest {
             assertEquals(0, emptyList.getLength());
 
             emptyList.addTask("210 prelecture", 45, false);
-
             assertEquals(1, emptyList.getLength());
             assertTrue(emptyList.getAllTaskNames().contains("210 prelecture"));
         } catch (InvalidTaskNameException e) {
@@ -81,13 +91,12 @@ class ToDoListTest {
     @Test
     public void testAddTaskOneItemList() {
         try {
-        oneItem.addTask("task 1", 5, true);
-        assertEquals(1, oneItem.getLength());
+            assertEquals(1, oneItem.getLength());
 
-        oneItem.addTask("task 2", 30, false);
+            oneItem.addTask("task 2", 30, false);
 
-        assertEquals(2, oneItem.getLength());
-        assertTrue(oneItem.getAllTaskNames().contains("task 2"));
+            assertEquals(2, oneItem.getLength());
+            assertTrue(oneItem.getAllTaskNames().contains("task 2"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -98,15 +107,13 @@ class ToDoListTest {
     @Test
     public void testAddTaskManyItemList() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, true);
-        assertEquals(3, fewItems.getLength());
 
-        fewItems.addTask("task 4", 30, false);
+            assertEquals(3, fewItems.getLength());
 
-        assertEquals(4, fewItems.getLength());
-        assertTrue(fewItems.getAllTaskNames().contains("task 4"));
+            fewItems.addTask("task 4", 30, false);
+
+            assertEquals(4, fewItems.getLength());
+            assertTrue(fewItems.getAllTaskNames().contains("task 4"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -136,13 +143,6 @@ class ToDoListTest {
     @Test
     public void testRemoveTaskInvalidIndex() {
         try {
-            try {
-                oneItem.addTask("task 1", 5, true);
-            } catch (InvalidTaskNameException e) {
-                fail("Unexpected InvalidTaskNameException");
-            } catch (InvalidTaskTimeException e) {
-                fail("Unexpected InvalidTaskTimeException");
-            }
             assertEquals(1, oneItem.getLength());
 
             oneItem.removeTask(2);
@@ -156,7 +156,7 @@ class ToDoListTest {
         try {
             oneItem.removeTask(-1);
             fail("ArrayIndexOutOfBoundsException not thrown");
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             // expected
             assertEquals(1, oneItem.getLength());
         }
@@ -167,16 +167,11 @@ class ToDoListTest {
     @Test
     public void testRemoveTaskOneFirst() {
         try {
-        oneItem.addTask("task 1", 5, true);
-        assertEquals(1, oneItem.getLength());
+            assertEquals(1, oneItem.getLength());
 
-        oneItem.removeTask(0);
+            oneItem.removeTask(0);
 
-        assertEquals(0, oneItem.getLength());
-        } catch (InvalidTaskNameException e) {
-            fail("Unexpected InvalidTaskNameException thrown");
-        } catch (InvalidTaskTimeException e) {
-            fail("Unexpected InvalidTaskTimeException");
+            assertEquals(0, oneItem.getLength());
         } catch (IndexOutOfBoundsException e) {
             fail("Unexpected ArrayIndexOutOfBoundsException thrown");
         }
@@ -187,19 +182,17 @@ class ToDoListTest {
     @Test
     public void testRemoveTaskManyFirst() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, true);
-        fewItems.addTask("task 4", 30, false);
-        assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(0);
+            fewItems.addTask("task 4", 30, false);
+            assertEquals(4, fewItems.getLength());
 
-        assertEquals(3, fewItems.getLength());
-        List<String> tasks = fewItems.getAllTaskNames();
-        assertTrue(tasks.contains("task 2"));
-        assertTrue(tasks.contains("task 3"));
-        assertTrue(tasks.contains("task 4"));
+            fewItems.removeTask(0);
+
+            assertEquals(3, fewItems.getLength());
+            List<String> tasks = fewItems.getAllTaskNames();
+            assertTrue(tasks.contains("task 2"));
+            assertTrue(tasks.contains("task 3"));
+            assertTrue(tasks.contains("task 4"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -215,19 +208,16 @@ class ToDoListTest {
     @Test
     public void testRemoveTaskManyMiddle() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, true);
-        fewItems.addTask("task 4", 30, false);
-        assertEquals(4, fewItems.getLength());
+            fewItems.addTask("task 4", 30, false);
+            assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(2);
+            fewItems.removeTask(2);
 
-        assertEquals(3, fewItems.getLength());
-        List<String> tasks = fewItems.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
-        assertTrue(tasks.contains("task 2"));
-        assertTrue(tasks.contains("task 4"));
+            assertEquals(3, fewItems.getLength());
+            List<String> tasks = fewItems.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
+            assertTrue(tasks.contains("task 2"));
+            assertTrue(tasks.contains("task 4"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -243,19 +233,16 @@ class ToDoListTest {
     @Test
     public void testRemoveTaskManyLast() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, true);
-        fewItems.addTask("task 4", 30, false);
-        assertEquals(4, fewItems.getLength());
+            fewItems.addTask("task 4", 30, false);
+            assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(3);
+            fewItems.removeTask(3);
 
-        assertEquals(3, fewItems.getLength());
-        List<String> tasks = fewItems.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
-        assertTrue(tasks.contains("task 2"));
-        assertTrue(tasks.contains("task 3"));
+            assertEquals(3, fewItems.getLength());
+            List<String> tasks = fewItems.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
+            assertTrue(tasks.contains("task 2"));
+            assertTrue(tasks.contains("task 3"));
 
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
@@ -272,26 +259,23 @@ class ToDoListTest {
     @Test
     public void testRemoveTaskManyMultiple() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, true);
-        fewItems.addTask("task 4", 30, false);
-        assertEquals(4, fewItems.getLength());
+            fewItems.addTask("task 4", 30, false);
+            assertEquals(4, fewItems.getLength());
 
-        fewItems.removeTask(1);
+            fewItems.removeTask(1);
 
-        assertEquals(3, fewItems.getLength());
-        List<String> tasks = fewItems.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
-        assertTrue(tasks.contains("task 3"));
-        assertTrue(tasks.contains("task 4"));
+            assertEquals(3, fewItems.getLength());
+            List<String> tasks = fewItems.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
+            assertTrue(tasks.contains("task 3"));
+            assertTrue(tasks.contains("task 4"));
 
-        fewItems.removeTask(1);
+            fewItems.removeTask(1);
 
-        assertEquals(2, fewItems.getLength());
-        tasks = fewItems.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
-        assertTrue(tasks.contains("task 4"));
+            assertEquals(2, fewItems.getLength());
+            tasks = fewItems.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
+            assertTrue(tasks.contains("task 4"));
 
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
@@ -309,55 +293,49 @@ class ToDoListTest {
     // the only task in list is priority
     @Test
     public void testGetPrioritiesOneTrue() {
-   try {
-        oneItem.addTask("task 1", 5, true);
-        assertEquals(1, oneItem.getLength());
+            assertEquals(1, oneItem.getLength());
 
-        ToDoList priorities = oneItem.getPrioritiesOnly();
+            ToDoList priorities = oneItem.getPrioritiesOnly();
 
-        assertEquals(1, priorities.getLength());
-        assertTrue(priorities.getAllTaskNames().contains("task 1"));
+            assertEquals(1, priorities.getLength());
+            assertTrue(priorities.getAllTaskNames().contains("task 1"));
 
-   } catch (InvalidTaskNameException e) {
-       fail("Unexpected InvalidTaskNameException");
-   } catch (InvalidTaskTimeException e) {
-       fail("Unexpected InvalidTaskTimeException");
-   }
     }
 
     // only task in list is not priority
     @Test
     public void testGetPrioritiesOneFalse() {
         try {
-        oneItem.addTask("task 1", 5, false);
-        assertEquals(1, oneItem.getLength());
+            emptyList.addTask("task 1", 5, false);
+            assertEquals(1, emptyList.getLength());
 
-        ToDoList priorities = oneItem.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(0, priorities.getLength());
+            assertEquals(0, priorities.getLength());
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
             fail("Unexpected InvalidTaskTimeException");
         }
+
     }
 
     // all of many tasks in list are priority
     @Test
     public void testGetPrioritiesManyTrue() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, true);
-        fewItems.addTask("task 3", 120, true);
-        assertEquals(3, fewItems.getLength());
+            emptyList.addTask("task 1", 5, true);
+            emptyList.addTask("task 2", 20, true);
+            emptyList.addTask("task 3", 120, true);
+            assertEquals(3, emptyList.getLength());
 
-        ToDoList priorities = fewItems.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(3, priorities.getLength());
-        List<String> tasks = priorities.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
-        assertTrue(tasks.contains("task 2"));
-        assertTrue(tasks.contains("task 3"));
+            assertEquals(3, priorities.getLength());
+            List<String> tasks = priorities.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
+            assertTrue(tasks.contains("task 2"));
+            assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -369,14 +347,14 @@ class ToDoListTest {
     @Test
     public void testGetPrioritiesManyFalse() {
         try {
-        fewItems.addTask("task 1", 5, false);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, false);
-        assertEquals(3, fewItems.getLength());
+            emptyList.addTask("task 1", 5, false);
+            emptyList.addTask("task 2", 20, false);
+            emptyList.addTask("task 3", 120, false);
+            assertEquals(3, emptyList.getLength());
 
-        ToDoList priorities = fewItems.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(0, priorities.getLength());
+            assertEquals(0, priorities.getLength());
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -388,16 +366,16 @@ class ToDoListTest {
     @Test
     public void testGetPrioritiesManyFalseOneTrueStart() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, false);
-        assertEquals(3, fewItems.getLength());
+            emptyList.addTask("task 1", 5, true);
+            emptyList.addTask("task 2", 20, false);
+            emptyList.addTask("task 3", 120, false);
+            assertEquals(3, emptyList.getLength());
 
-        ToDoList priorities = fewItems.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(1, priorities.getLength());
-        List<String> tasks = priorities.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
+            assertEquals(1, priorities.getLength());
+            List<String> tasks = priorities.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -409,16 +387,16 @@ class ToDoListTest {
     @Test
     public void testGetPrioritiesManyFalseOneTrueMiddle() {
         try {
-        fewItems.addTask("task 1", 5, false);
-        fewItems.addTask("task 2", 20, true);
-        fewItems.addTask("task 3", 120, false);
-        assertEquals(3, fewItems.getLength());
+            emptyList.addTask("task 1", 5, false);
+            emptyList.addTask("task 2", 20, true);
+            emptyList.addTask("task 3", 120, false);
+            assertEquals(3, emptyList.getLength());
 
-        ToDoList priorities = fewItems.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(1, priorities.getLength());
-        List<String> tasks = priorities.getAllTaskNames();
-        assertTrue(tasks.contains("task 2"));
+            assertEquals(1, priorities.getLength());
+            List<String> tasks = priorities.getAllTaskNames();
+            assertTrue(tasks.contains("task 2"));
 
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
@@ -432,16 +410,16 @@ class ToDoListTest {
     @Test
     public void testGetPrioritiesManyFalseOneTrueEnd() {
         try {
-        fewItems.addTask("task 1", 5, false);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, true);
-        assertEquals(3, fewItems.getLength());
+            emptyList.addTask("task 1", 5, false);
+            emptyList.addTask("task 2", 20, false);
+            emptyList.addTask("task 3", 120, true);
+            assertEquals(3, emptyList.getLength());
 
-        ToDoList priorities = fewItems.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(1, priorities.getLength());
-        List<String> tasks = priorities.getAllTaskNames();
-        assertTrue(tasks.contains("task 3"));
+            assertEquals(1, priorities.getLength());
+            List<String> tasks = priorities.getAllTaskNames();
+            assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -453,19 +431,19 @@ class ToDoListTest {
     @Test
     public void testGetPrioritiesManyTrueOneFalseEnd() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, true);
-        fewItems.addTask("task 3", 120, true);
-        fewItems.addTask("task 4", 30, false);
-        assertEquals(4, fewItems.getLength());
+            emptyList.addTask("task 1", 5, true);
+            emptyList.addTask("task 2", 20, true);
+            emptyList.addTask("task 3", 120, true);
+            emptyList.addTask("task 4", 30, false);
+            assertEquals(4, emptyList.getLength());
 
-        ToDoList priorities = fewItems.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(3, priorities.getLength());
-        List<String> tasks = priorities.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
-        assertTrue(tasks.contains("task 2"));
-        assertTrue(tasks.contains("task 3"));
+            assertEquals(3, priorities.getLength());
+            List<String> tasks = priorities.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
+            assertTrue(tasks.contains("task 2"));
+            assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -478,18 +456,18 @@ class ToDoListTest {
     @Test
     public void testGetPrioritiesManyFalseManyTrue() {
         try {
-        fewItems.addTask("task 1", 5, true);
-        fewItems.addTask("task 2", 20, false);
-        fewItems.addTask("task 3", 120, true);
-        fewItems.addTask("task 4", 30, false);
-        assertEquals(4, fewItems.getLength());
+            emptyList.addTask("task 1", 5, true);
+            emptyList.addTask("task 2", 20, false);
+            emptyList.addTask("task 3", 120, true);
+            emptyList.addTask("task 4", 30, false);
+            assertEquals(4, emptyList.getLength());
 
-        ToDoList priorities = fewItems.getPrioritiesOnly();
+            ToDoList priorities = emptyList.getPrioritiesOnly();
 
-        assertEquals(2, priorities.getLength());
-        List<String> tasks = priorities.getAllTaskNames();
-        assertTrue(tasks.contains("task 1"));
-        assertTrue(tasks.contains("task 3"));
+            assertEquals(2, priorities.getLength());
+            List<String> tasks = priorities.getAllTaskNames();
+            assertTrue(tasks.contains("task 1"));
+            assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
         } catch (InvalidTaskTimeException e) {
@@ -501,53 +479,35 @@ class ToDoListTest {
     // getLength tests
     @Test
     public void testGetLength() {
-        try {
         //empty list
         assertEquals(0, emptyList.getLength());
         //list with one item
-        fewItems.addTask("task", 1, false);
-        assertEquals(1, fewItems.getLength());
-        //list with 2 items
-        fewItems.addTask("task2", 1, false);
-        assertEquals(2, fewItems.getLength());
-        } catch (InvalidTaskNameException e) {
-            fail("Unexpected InvalidTaskNameException");
-        } catch (InvalidTaskTimeException e) {
-            fail("Unexpected InvalidTaskTimeException");
-        }
+        assertEquals(1, oneItem.getLength());
+        //list with 3 items
+        assertEquals(3, fewItems.getLength());
 
     }
 
     // getAllTaskNames tests
     @Test
     public void testGetAllTaskNames() {
-        try {
-        //no tasks
-        List<String> names = emptyList.getAllTaskNames();
-        assertEquals(names.size(), 0);
+            //no tasks
+            List<String> names = emptyList.getAllTaskNames();
+            assertEquals(names.size(), 0);
 
-        //one task
-        oneItem.addTask("eat", 15, true);
+            //one task
+            names = oneItem.getAllTaskNames();
+            assertEquals(names.size(), 1);
+            assertTrue(names.contains("task 1"));
 
-        names = oneItem.getAllTaskNames();
-        assertEquals(names.size(), 1);
-        assertTrue(names.contains("eat"));
+            //many tasks
+            names = fewItems.getAllTaskNames();
 
-        //many tasks
-        oneItem.addTask("sleep", 90, false);
-        oneItem.addTask("work", 10, true);
+            assertEquals(names.size(), 3);
+            assertTrue(names.contains("task 1"));
+            assertTrue(names.contains("task 2"));
+            assertTrue(names.contains("task 3"));
 
-        names = oneItem.getAllTaskNames();
-
-        assertEquals(names.size(), 3);
-        assertTrue(names.contains("eat"));
-        assertTrue(names.contains("sleep"));
-        assertTrue(names.contains("work"));
-        } catch (InvalidTaskNameException e) {
-            fail("Unexpected InvalidTaskNameException");
-        } catch (InvalidTaskTimeException e) {
-            fail("Unexpected InvalidTaskTimeException");
-        }
     }
 
 }

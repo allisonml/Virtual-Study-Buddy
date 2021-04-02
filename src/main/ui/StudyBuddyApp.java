@@ -153,7 +153,8 @@ public class StudyBuddyApp extends JFrame {
 
 
     // MODIFIES: this, todaysTodos
-    // EFFECTS: removes task in given position from to do list
+    // EFFECTS: if jlist empty or no item is selected, displays problem on JOptionPane,
+    //          otherwise removes task in given position from to do list
     private void removeTask() {
         //promptLabel.setText("removing current selection...");
         //popup, label at top with question, view of list, number of indexes at bottom?

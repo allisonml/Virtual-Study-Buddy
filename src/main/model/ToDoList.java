@@ -24,7 +24,8 @@ public class ToDoList implements Writable {
     // MODIFIES: this
     // EFFECTS: if name is empty string, throws InvalidTaskNameException, if minutesNeeded is less than 1, throws
     //          InvalidTaskTimeException, otherwise adds a task with the given info to tasks
-    public void addTask(String name, int minutesNeeded, boolean isPriority) throws InvalidTaskNameException, InvalidTaskTimeException {
+    public void addTask(String name, int minutesNeeded, boolean isPriority) throws InvalidTaskNameException,
+            InvalidTaskTimeException {
         if (name.equals("")) {
             throw new InvalidTaskNameException();
         } else if (minutesNeeded <= 0) {

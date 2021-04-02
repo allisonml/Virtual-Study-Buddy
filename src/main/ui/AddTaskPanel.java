@@ -125,7 +125,8 @@ public class AddTaskPanel extends JPanel {
     String[] yesNo = {"no", "yes"};
 
     // MODIFIES: this
-    // EFFECTS: creates new task from input and adds task to list
+    // EFFECTS: if input is invalid, displays problem on JOptionPane,
+    //          otherwise creates new task from input and adds task to list
     private void addNewTask() {
         try {
             String name = taskNameField.getText();
