@@ -160,7 +160,11 @@ public class StudyBuddyApp extends JFrame {
         // or just like in listDemo
 
         int num = jlist.getSelectedIndex();
-        todaysTodos.removeTask(num);
+        try {
+            todaysTodos.removeTask(num);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Please select an existing task to remove");
+        }
 
         updateListView();
 

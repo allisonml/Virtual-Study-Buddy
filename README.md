@@ -47,3 +47,12 @@ Phase 2:
 - As a user, I want to be able to save my current todo list to file
 - As a user, I want to be able to load the most previously saved todo list from file
 - As a user, I want to be prompted to save my current todos or not before I end the session and be able to do so if desired
+
+Phase 4: Task 2
+- Test and design a class in your model package that is robust.  You must have at least one method that throws a 
+checked exception. You must have one test for the case where the exception is expected and another where the 
+exception is not expected.
+    - Class: ToDoList
+    - Methods: addTask(), removeTask()
+        - InvalidTaskNameException caught in addNewTask() in AddTaskPanel class
+        - ArrayIndexOutOfBoundsException caught in removeTask() in StudyBuddyApp class

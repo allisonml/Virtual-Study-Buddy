@@ -1,5 +1,7 @@
 package ui;
 
+import exceptions.InvalidTaskNameException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -124,30 +126,32 @@ public class AddTaskPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: creates new task from input and adds task to list
     private void addNewTask() {
-        String name = taskNameField.getText();
-        int time = (int) timeField.getValue();
-        boolean isPriority = false;
-        if (priority.isSelected()) {
-            isPriority = true;
+        try {
+            String name = taskNameField.getText();
+            int time = (int) timeField.getValue();
+            boolean isPriority = priority.isSelected();
+
+            studyBuddyApp.getToDoList().addTask(name, time, isPriority);
+
+            studyBuddyApp.playSound("scribbleSound.wav");
+
+            java.util.Timer timer = new java.util.Timer();
+            timer.schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            studyBuddyApp.updateListView();
+                            reset();
+                            timer.cancel();
+                        }
+                    },
+                    2300
+            );
+            //setVisible(false);
+        } catch (InvalidTaskNameException e) {
+            JOptionPane.showMessageDialog(this, "Please input a task name");
+
         }
-
-        studyBuddyApp.getToDoList().addTask(name, time, isPriority);
-
-        studyBuddyApp.playSound("scribbleSound.wav");
-
-        java.util.Timer timer = new java.util.Timer();
-        timer.schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        studyBuddyApp.updateListView();
-                        reset();
-                        timer.cancel();
-                    }
-                },
-                2300
-        );
-        //setVisible(false);
 
     }
 

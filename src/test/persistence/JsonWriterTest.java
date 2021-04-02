@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.InvalidTaskNameException;
 import model.Task;
 import model.ToDoList;
 import org.junit.jupiter.api.Test;
@@ -53,9 +54,13 @@ public class JsonWriterTest extends JsonTest {
     void testWriterFilledList() {
         try {
             ToDoList toDoList = new ToDoList();
-            toDoList.addTask("vacuum", 30, true);
-            toDoList.addTask("math webwork", 60, true);
-            toDoList.addTask("run", 40, false);
+            try {
+                toDoList.addTask("vacuum", 30, true);
+                toDoList.addTask("math webwork", 60, true);
+                toDoList.addTask("run", 40, false);
+            } catch (InvalidTaskNameException e) {
+                System.out.println(e.getMessage());
+            }
             JsonWriter writer = new JsonWriter("./data/testWriterFilledList.json");
             writer.open();
             writer.write(toDoList);

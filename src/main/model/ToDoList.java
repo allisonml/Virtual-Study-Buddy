@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidTaskNameException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -22,15 +23,19 @@ public class ToDoList implements Writable {
     // REQUIRES: minutesNeeded > 0
     // MODIFIES: this
     // EFFECTS: adds
-    public void addTask(String name, int minutesNeeded, boolean isPriority) {
-        Task newTask = new Task(name, minutesNeeded, isPriority);
-        this.tasks.add(newTask);
+    public void addTask(String name, int minutesNeeded, boolean isPriority) throws InvalidTaskNameException {
+        if (name.equals("")) {
+            throw new InvalidTaskNameException();
+        } else {
+            Task newTask = new Task(name, minutesNeeded, isPriority);
+            this.tasks.add(newTask);
+        }
     }
 
     // REQUIRES: 0 <= taskNum < task list size, tasks is non-empty
     // MODIFIES: this
     // EFFECTS: removes task in given position from to do list
-    public void removeTask(int index) {
+    public void removeTask(int index) throws ArrayIndexOutOfBoundsException {
         //int index = taskNum - 1;
         tasks.remove(index);
 

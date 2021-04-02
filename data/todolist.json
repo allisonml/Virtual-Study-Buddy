@@ -1,17 +1,1 @@
-{"tasks": [
-    {
-        "name": "math hw",
-        "minutesNeeded": 60,
-        "isPriority": true
-    },
-    {
-        "name": "nap",
-        "minutesNeeded": 20,
-        "isPriority": false
-    },
-    {
-        "name": "go for a run",
-        "minutesNeeded": 30,
-        "isPriority": true
-    }
-]}
+{"tasks": []}

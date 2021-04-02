@@ -1,9 +1,11 @@
 package persistence;
 
+import exceptions.InvalidTaskNameException;
 import model.ToDoList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -62,7 +64,12 @@ public class JsonReader {
         int minutesNeeded = jsonObject.getInt("minutesNeeded");
         boolean isPriority = jsonObject.getBoolean("isPriority");
 
-        todos.addTask(name, minutesNeeded, isPriority);
+        try {
+            todos.addTask(name, minutesNeeded, isPriority);
+        } catch (InvalidTaskNameException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }
