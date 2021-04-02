@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.InvalidTaskFieldException;
 import exceptions.InvalidTaskNameException;
 import model.ToDoList;
 import org.json.JSONArray;
@@ -66,7 +67,7 @@ public class JsonReader {
 
         try {
             todos.addTask(name, minutesNeeded, isPriority);
-        } catch (InvalidTaskNameException e) {
+        } catch (InvalidTaskFieldException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.InvalidTaskFieldException;
 import exceptions.InvalidTaskNameException;
 import model.Task;
 import model.ToDoList;
@@ -58,7 +59,7 @@ public class JsonWriterTest extends JsonTest {
                 toDoList.addTask("vacuum", 30, true);
                 toDoList.addTask("math webwork", 60, true);
                 toDoList.addTask("run", 40, false);
-            } catch (InvalidTaskNameException e) {
+            } catch (InvalidTaskFieldException e) {
                 System.out.println(e.getMessage());
             }
             JsonWriter writer = new JsonWriter("./data/testWriterFilledList.json");

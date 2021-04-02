@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InvalidTaskNameException extends Exception {
+public class InvalidTaskNameException extends InvalidTaskFieldException {
 
     @Override
     public String getMessage() {

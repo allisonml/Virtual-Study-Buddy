@@ -1,6 +1,7 @@
 package ui;
 
 import exceptions.InvalidTaskNameException;
+import exceptions.InvalidTaskTimeException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -151,6 +152,8 @@ public class AddTaskPanel extends JPanel {
         } catch (InvalidTaskNameException e) {
             JOptionPane.showMessageDialog(this, "Please input a task name");
 
+        } catch (InvalidTaskTimeException e) {
+            JOptionPane.showMessageDialog(this, "Time required must be greater than 0");
         }
 
     }

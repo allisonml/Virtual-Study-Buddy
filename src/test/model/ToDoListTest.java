@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.InvalidTaskNameException;
+import exceptions.InvalidTaskTimeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +37,8 @@ class ToDoListTest {
             assertTrue(emptyList.getAllTaskNames().contains("210 prelecture"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
@@ -51,8 +54,28 @@ class ToDoListTest {
         } catch (InvalidTaskNameException e) {
             // expected
             assertEquals(0, emptyList.getLength());
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
+
+    //add task with 0 minutesNeeded
+    @Test
+    public void testAddTaskInvalidTime() {
+        try {
+            assertEquals(0, emptyList.getLength());
+
+            emptyList.addTask("Webwork", 0, false);
+
+            fail("InvalidTaskTimeException was not thrown");
+        } catch (InvalidTaskNameException e) {
+            fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            // expected
+            assertEquals(0, emptyList.getLength());
+        }
+    }
+
 
     // add task to a non-empty list
     @Test
@@ -67,6 +90,8 @@ class ToDoListTest {
         assertTrue(oneItem.getAllTaskNames().contains("task 2"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
@@ -84,10 +109,59 @@ class ToDoListTest {
         assertTrue(fewItems.getAllTaskNames().contains("task 4"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
     //removeTask tests
+
+    // remove from empty list
+    @Test
+    public void testRemoveTaskEmptyList() {
+        try {
+            assertEquals(0, emptyList.getLength());
+
+            emptyList.removeTask(0);
+
+            fail("ArrayIndexOutOfBoundsException not thrown");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+            assertEquals(0, emptyList.getLength());
+        }
+
+    }
+
+    // remove from invalid index
+    @Test
+    public void testRemoveTaskInvalidIndex() {
+        try {
+            try {
+                oneItem.addTask("task 1", 5, true);
+            } catch (InvalidTaskNameException e) {
+                fail("Unexpected InvalidTaskNameException");
+            } catch (InvalidTaskTimeException e) {
+                fail("Unexpected InvalidTaskTimeException");
+            }
+            assertEquals(1, oneItem.getLength());
+
+            oneItem.removeTask(2);
+
+            fail("ArrayIndexOutOfBoundsException not thrown");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+            assertEquals(1, oneItem.getLength());
+        }
+
+        try {
+            oneItem.removeTask(-1);
+            fail("ArrayIndexOutOfBoundsException not thrown");
+        } catch (IndexOutOfBoundsException e){
+            // expected
+            assertEquals(1, oneItem.getLength());
+        }
+
+    }
 
     // remove the only task
     @Test
@@ -100,7 +174,11 @@ class ToDoListTest {
 
         assertEquals(0, oneItem.getLength());
         } catch (InvalidTaskNameException e) {
-            fail("Unexpected InvalidTaskNameException");
+            fail("Unexpected InvalidTaskNameException thrown");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
+        } catch (IndexOutOfBoundsException e) {
+            fail("Unexpected ArrayIndexOutOfBoundsException thrown");
         }
 
     }
@@ -124,7 +202,12 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 4"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
+        } catch (IndexOutOfBoundsException e) {
+            fail("Unexpected ArrayIndexOutOfBoundsException thrown");
         }
+
 
     }
 
@@ -147,7 +230,12 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 4"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
+        } catch (IndexOutOfBoundsException e) {
+            fail("Unexpected ArrayIndexOutOfBoundsException thrown");
         }
+
 
     }
 
@@ -171,7 +259,12 @@ class ToDoListTest {
 
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
+        } catch (IndexOutOfBoundsException e) {
+            fail("Unexpected ArrayIndexOutOfBoundsException thrown");
         }
+
 
     }
 
@@ -202,7 +295,12 @@ class ToDoListTest {
 
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
+        } catch (IndexOutOfBoundsException e) {
+            fail("Unexpected ArrayIndexOutOfBoundsException thrown");
         }
+
 
     }
 
@@ -222,6 +320,8 @@ class ToDoListTest {
 
    } catch (InvalidTaskNameException e) {
        fail("Unexpected InvalidTaskNameException");
+   } catch (InvalidTaskTimeException e) {
+       fail("Unexpected InvalidTaskTimeException");
    }
     }
 
@@ -237,6 +337,8 @@ class ToDoListTest {
         assertEquals(0, priorities.getLength());
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
@@ -258,6 +360,8 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
@@ -275,6 +379,8 @@ class ToDoListTest {
         assertEquals(0, priorities.getLength());
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
@@ -294,6 +400,8 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 1"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
@@ -314,6 +422,8 @@ class ToDoListTest {
 
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
 
     }
@@ -334,6 +444,8 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 
@@ -356,6 +468,8 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
 
     }
@@ -378,6 +492,8 @@ class ToDoListTest {
         assertTrue(tasks.contains("task 3"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
 
     }
@@ -396,6 +512,8 @@ class ToDoListTest {
         assertEquals(2, fewItems.getLength());
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
 
     }
@@ -427,6 +545,8 @@ class ToDoListTest {
         assertTrue(names.contains("work"));
         } catch (InvalidTaskNameException e) {
             fail("Unexpected InvalidTaskNameException");
+        } catch (InvalidTaskTimeException e) {
+            fail("Unexpected InvalidTaskTimeException");
         }
     }
 

@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.InvalidTaskNameException;
+import exceptions.InvalidTaskTimeException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -23,25 +24,26 @@ public class ToDoList implements Writable {
     // REQUIRES: minutesNeeded > 0
     // MODIFIES: this
     // EFFECTS: adds
-    public void addTask(String name, int minutesNeeded, boolean isPriority) throws InvalidTaskNameException {
+    public void addTask(String name, int minutesNeeded, boolean isPriority) throws InvalidTaskNameException, InvalidTaskTimeException {
         if (name.equals("")) {
             throw new InvalidTaskNameException();
+        } else if (minutesNeeded <= 0) {
+            throw new InvalidTaskTimeException();
         } else {
             Task newTask = new Task(name, minutesNeeded, isPriority);
             this.tasks.add(newTask);
         }
     }
 
-    // REQUIRES: 0 <= taskNum < task list size, tasks is non-empty
     // MODIFIES: this
-    // EFFECTS: removes task in given position from to do list
-    public void removeTask(int index) throws ArrayIndexOutOfBoundsException {
+    // EFFECTS: removes task in given position from to do list if given index exists (0 < index < tasks.size())
+    //          in tasks, otherwise throws IndexOutOfBoundsException
+    public void removeTask(int index) throws IndexOutOfBoundsException {
         //int index = taskNum - 1;
         tasks.remove(index);
 
     }
 
-    // REQUIRES: this is non-empty
     // EFFECTS: returns a version of to do list with only priority tasks
     public ToDoList getPrioritiesOnly() {
         ToDoList prioritiesOnly = new ToDoList();
