@@ -2,6 +2,7 @@ package persistence;
 
 import exceptions.InvalidTaskFieldException;
 import exceptions.InvalidTaskNameException;
+import exceptions.InvalidTaskTimeException;
 import model.ToDoList;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,7 +43,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses to do list from JSON object and returns it
-    private ToDoList parseToDoList(JSONObject jsonObject) {
+    private ToDoList parseToDoList(JSONObject jsonObject)  {
         ToDoList todos = new ToDoList();
         addTasks(todos, jsonObject);
         return todos;

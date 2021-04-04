@@ -1,6 +1,5 @@
 package persistence;
 
-import exceptions.InvalidTaskFieldException;
 import model.Task;
 import model.ToDoList;
 import org.junit.jupiter.api.Test;
@@ -56,7 +55,6 @@ public class JsonReaderTest extends JsonTest {
     }
 
     //list has first task with invalid name
-    // list is non-empty
     @Test
     void testReaderInvalidNameList() {
         JsonReader reader = new JsonReader( "./data/testReaderListWithInvalidName");
