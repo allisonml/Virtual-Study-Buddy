@@ -56,3 +56,13 @@ exception is not expected.
     - Methods: addTask(), removeTask()
         - InvalidTaskNameException, InvalidTaskTimeException caught in addNewTask() in AddTaskPanel class
         - ArrayIndexOutOfBoundsException caught in removeTask() in StudyBuddyApp class
+        
+Phase 4: Task 3
+- Make ToDoList implement Iterable<Task>
+- Separate StudyBuddyApp into more classes (that have studyBuddyApp fields) to increase cohesion
+    - eg. one class for the list scrollpane, one for buttonPane
+        - so that buttonPane modifies ToDoList and the scrollpane observes ToDoList
+    - StudyBuddyApp just puts panels on frame, sets up ToDoList and persistence
+- Reduce semantic coupling in StudyBuddyApp and AddTaskPanel 
+    - Make an abstract GenericPanel class to be extended by each of the main panel classes(AddTaskPanel and others extracted 
+from  StudyBuddyApp), with all the common formatting methods and a protected StudyBuddyApp field
