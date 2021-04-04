@@ -9,7 +9,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +32,6 @@ public class StudyBuddyApp extends JFrame {
     private JsonReader jsonReader;
 
     private JLabel tipLabel;
-    private AddTaskPanel addTaskPanel;
     private JList jlist;
     private JPanel bottomButtonPane;
     //private JLabel promptLabel; // helpLabel
@@ -52,7 +50,7 @@ public class StudyBuddyApp extends JFrame {
 
         tipLabel = new JLabel(TODO_TIP);
         tipLabel.setFont(FONT_BOLDED);
-        addTaskPanel = new AddTaskPanel(this);
+        AddTaskPanel addTaskPanel = new AddTaskPanel(this);
         JPanel listPanel = getScrollPane();
         JPanel bottomButtonPane = setUpButtonPane();
 //        promptLabel = new JLabel("prompt label is visible");

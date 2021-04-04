@@ -1,1 +1,12 @@
-{"tasks": []}
+{"tasks": [
+    {
+        "name": "run",
+        "minutesNeeded": 30,
+        "isPriority": true
+    },
+    {
+        "name": "math homework",
+        "minutesNeeded": 60,
+        "isPriority": true
+    }
+]}
