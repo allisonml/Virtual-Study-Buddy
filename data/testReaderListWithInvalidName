@@ -1,0 +1,13 @@
+{"tasks": [
+  {
+    "name": "",
+    "minutesNeeded": 30,
+    "isPriority": true
+  },
+
+  {
+    "name": "run",
+    "minutesNeeded": 40,
+    "isPriority": false
+  }
+]}
