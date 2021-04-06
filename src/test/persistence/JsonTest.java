@@ -4,7 +4,7 @@ import model.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// tests for json functionality
+// Tests for json functionality
 // code taken and modified from JsonSerializationDemo
 public class JsonTest {
 

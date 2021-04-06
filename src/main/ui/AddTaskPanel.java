@@ -120,10 +120,6 @@ public class AddTaskPanel extends JPanel {
         return fieldInputPanel;
     }
 
-
-    // enumeration of task priority choices
-    String[] yesNo = {"no", "yes"};
-
     // MODIFIES: this
     // EFFECTS: if input is invalid, displays problem on JOptionPane,
     //          otherwise creates new task from input and adds task to list

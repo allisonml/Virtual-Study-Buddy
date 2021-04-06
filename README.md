@@ -58,11 +58,12 @@ exception is not expected.
         - ArrayIndexOutOfBoundsException caught in removeTask() in StudyBuddyApp class
         
 Phase 4: Task 3
-- Make ToDoList implement Iterable<Task>
-- Separate StudyBuddyApp into more classes (that have studyBuddyApp fields) to increase cohesion
-    - eg. one class for the list scrollpane, one for buttonPane
-        - so that buttonPane modifies ToDoList and the scrollpane observes ToDoList
-    - StudyBuddyApp just puts panels on frame, sets up main ToDoList and persistence related methods
+- Make ToDoList implement Iterable < Task >
+- Separate StudyBuddyApp into more classes to increase cohesion
+    - eg. one class for the list scrollpane and remove button, one for buttonPane(to be load/save dropdown menu)
+        - scrollpane observes ToDoList
+    - StudyBuddyApp just puts panels on frame, sets up ToDoList and persistence related methods
 - Reduce semantic coupling in StudyBuddyApp and AddTaskPanel 
-    - Make an abstract GenericPanel class to be extended by each of the main panel classes(AddTaskPanel and others extracted 
-from  StudyBuddyApp), with all the common formatting methods and a protected StudyBuddyApp field
+    - Make an abstract GenericPanel class to be extended by each of the main panel classes(AddTaskPanel and others 
+    extracted from  StudyBuddyApp), with all the common formatting methods and a protected StudyBuddyApp field
+(- if any methods are still long with multiple operations, extract to delegate tasks to helper methods)

@@ -1,6 +1,5 @@
 package ui;
 
-import exceptions.InvalidTaskFieldException;
 import model.Task;
 import model.ToDoList;
 import persistence.JsonReader;
@@ -34,7 +33,6 @@ public class StudyBuddyApp extends JFrame {
 
     private JLabel tipLabel;
     private JList jlist;
-    private JPanel bottomButtonPane;
     //private JLabel promptLabel; // helpLabel
     //private JTextField textField;
 
@@ -103,7 +101,7 @@ public class StudyBuddyApp extends JFrame {
         JButton removeButton = setUpButton("remove", new Color(245, 95, 95));
         removeButton.addActionListener(e -> removeTask());
 
-        bottomButtonPane = new JPanel();
+        JPanel bottomButtonPane = new JPanel();
         bottomButtonPane.setLayout(new FlowLayout());
         bottomButtonPane.add(loadButton);
         bottomButtonPane.add(saveButton);
@@ -187,7 +185,7 @@ public class StudyBuddyApp extends JFrame {
     }
 
 
-    // EFFECTS: saves the to do list to file
+    // EFFECTS: saves the to do list to file or sets tipLabel to error message if unable
     private void saveToDoList() {
         try {
             jsonWriter.open();
@@ -200,7 +198,7 @@ public class StudyBuddyApp extends JFrame {
     }
 
     // MODIFIES: this, todaysTodos
-    // EFFECTS: loads to do list from file
+    // EFFECTS: loads to do list from file or sets tipLabel to error message if unable
     private void loadToDoList() {
         try {
             todaysTodos = jsonReader.read();

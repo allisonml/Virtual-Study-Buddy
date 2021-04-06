@@ -1,7 +1,6 @@
 package persistence;
 
 import exceptions.InvalidTaskFieldException;
-import exceptions.InvalidTaskNameException;
 import model.Task;
 import model.ToDoList;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-// tests for JsonWriter class
+// Tests for JsonWriter class
 // code taken and modified from JsonSerializationDemo
 public class JsonWriterTest extends JsonTest {
 

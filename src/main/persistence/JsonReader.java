@@ -1,20 +1,17 @@
 package persistence;
 
 import exceptions.InvalidTaskFieldException;
-import exceptions.InvalidTaskNameException;
-import exceptions.InvalidTaskTimeException;
 import model.ToDoList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-// represents a reader that reads todolist from JSON data stored in file
+// Represents a reader that reads todolist from JSON data stored in file
 // includes code taken and modified from JsonSerializationDemo
 public class JsonReader {
     private String source;

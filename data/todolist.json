@@ -1,12 +1,12 @@
 {"tasks": [
     {
-        "name": "math hw",
-        "minutesNeeded": 60,
-        "isPriority": true
+        "name": "vacuum",
+        "minutesNeeded": 20,
+        "isPriority": false
     },
     {
-        "name": "nap",
+        "name": "210 lecture ticket",
         "minutesNeeded": 30,
-        "isPriority": false
+        "isPriority": true
     }
 ]}

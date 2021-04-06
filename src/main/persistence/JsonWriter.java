@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// represents a JSON writer to convert an object to JSON text and save
+// Represents a JSON writer to convert an object to JSON text and save
 // includes code taken and modified from JsonSerializationDemo
 public class JsonWriter {
     private static final int INDENT = 4;
@@ -37,7 +37,6 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: closes writer
     public void close() {
-
         writer.close();
     }
 

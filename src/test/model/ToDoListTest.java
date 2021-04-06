@@ -141,7 +141,7 @@ class ToDoListTest {
 
     // remove from invalid index
     @Test
-    public void testRemoveTaskInvalidIndex() {
+    public void testRemoveTaskIndexGreater() {
         try {
             assertEquals(1, oneItem.getLength());
 
@@ -153,6 +153,10 @@ class ToDoListTest {
             assertEquals(1, oneItem.getLength());
         }
 
+    }
+
+    @Test
+    public void testRemoveTaskIndexNegative() {
         try {
             oneItem.removeTask(-1);
             fail("ArrayIndexOutOfBoundsException not thrown");
@@ -160,7 +164,6 @@ class ToDoListTest {
             // expected
             assertEquals(1, oneItem.getLength());
         }
-
     }
 
     // remove the only task
